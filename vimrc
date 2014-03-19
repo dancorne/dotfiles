@@ -9,13 +9,13 @@ set background=dark
 set number
 
 "vundle
+filetype off "switch filetype off before loading vundle, switching on later
 set rtp+=~/.vim/bundle/vundle/ "add vundle to the vim runtime
 call vundle#rc() "start vundle
-Bundle 'gmarik/vundle' "let vundle handle vundle
+Bundle 'gmarik/vundle'
 
 "
-filetype off
-#filetype indent plugin on
+filetype indent plugin on
 set backspace=indent,eol,start
 set modeline
 set tabstop=8
