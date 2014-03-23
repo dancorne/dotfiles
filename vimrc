@@ -26,6 +26,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'vim-gitgutter'
 "see buffers in status bar
 Bundle 'bling/vim-bufferline'
+"
+Bundle 'bling/vim-airline'
 
 "
 filetype indent plugin on
