@@ -1,5 +1,4 @@
-"still no idea exactly what this does, but it revokes compatibility with vi
-"and therefore enables a lot of vim features
+"still no idea exactly what this does, but it revokes compatibility with vi and therefore enables a lot of vim features. Further research suggests the presence of a .vimrc disables compatability anyway.
 set nocompatible
 
 "theme
@@ -29,6 +28,8 @@ Bundle 'vim-gitgutter'
 Bundle 'bling/vim-bufferline'
 "
 Bundle 'bling/vim-airline'
+"syntax checking
+Bundle 'scrooloose/syntastic'
 
 "
 filetype indent plugin on
@@ -38,11 +39,13 @@ set tabstop=8
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+set undofile
 
 "frequently used
 let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
+nnoremap <Leader>g :Gstatus<CR>
 
 "copy and paste to system clipboard
 vmap <Leader>y "+y
