@@ -7,7 +7,8 @@ syntax on
 set background=dark
 
 "add line numbering
-set number
+"set number
+set relativenumber
 
 "vundle
 filetype off "switch filetype off before loading vundle, switching on later
