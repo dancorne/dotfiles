@@ -1,4 +1,4 @@
-"still no idea exactly what this does, but it revokes compatibility with vi and therefore enables a lot of vim features. Further research suggests the presence of a .vimrc disables compatability anyway.
+"obsolete now, as the presence of a ~/.vimrc implies this setting, but good to have anyway
 set nocompatible
 
 "theme
@@ -6,7 +6,7 @@ syntax on
 set background=dark
 
 "add line numbering
-"set number
+set number
 set relativenumber
 
 "vundle
@@ -26,8 +26,9 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'vim-gitgutter'
 "see buffers in status bar
 Bundle 'bling/vim-bufferline'
-"
+"status line
 Bundle 'bling/vim-airline'
+"Bundle 'Lokaltog/powerline' "doesn't work in cygwin with vim support for both python2 and 3, can't be bothered recompiling
 "syntax checking
 Bundle 'scrooloose/syntastic'
 
@@ -45,7 +46,15 @@ set undofile
 let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>g :Gstatus<CR>
+
+"git mappings
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>ga :Git add %:p<CR><CR>
+nnoremap <Leader>gc :Gcommit -v -q <CR>
+nnoremap <Leader>gd :Gitdiff<CR>
+nnoremap <Leader>go :Git checkout <Space>
+nnoremap <Leader>gb :Git branch <Space>
+nnoremap <Leader>gg :Ggrep <Space>
 
 "copy and paste to system clipboard
 vmap <Leader>y "+y
