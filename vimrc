@@ -4,10 +4,11 @@ set nocompatible
 "theme
 syntax on
 set background=dark
+set laststatus=2
 
 "add line numbering
 set number
-set relativenumber
+"set relativenumber
 
 "vundle
 filetype off "switch filetype off before loading vundle, switching on later
@@ -25,12 +26,24 @@ Bundle 'tpope/vim-fugitive'
 "see git diff on the left
 Bundle 'vim-gitgutter'
 "see buffers in status bar
-Bundle 'bling/vim-bufferline'
+"Bundle 'bling/vim-bufferline'
 "status line
 Bundle 'bling/vim-airline'
-"Bundle 'Lokaltog/powerline' "doesn't work in cygwin with vim support for both python2 and 3, can't be bothered recompiling
+"Bundle 'Lokaltog/powerline' 
+Bundle 'Lokaltog/powerline-fonts'
 "syntax checking
 Bundle 'scrooloose/syntastic'
+
+"airline settings
+let g:airline_theme             = 'powerlineish'
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_powerline_fonts = 1 
+
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 "
 filetype indent plugin on
