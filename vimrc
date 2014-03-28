@@ -35,7 +35,7 @@ Bundle 'Lokaltog/powerline-fonts'
 Bundle 'scrooloose/syntastic'
 
 "airline settings
-let g:airline_theme             = 'powerlineish'
+"let g:airline_theme             = 'powerlineish'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline#extensions#tabline#enabled = 1
