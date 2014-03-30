@@ -1,15 +1,6 @@
 "obsolete now, as the presence of a ~/.vimrc implies this setting, but good to have anyway
 set nocompatible
 
-"theme
-syntax on
-set background=dark
-set laststatus=2
-
-"add line numbering
-set number
-"set relativenumber
-
 "vundle
 filetype off "switch filetype off before loading vundle, switching on later
 set rtp+=~/.vim/bundle/vundle/ "add vundle to the vim runtime
@@ -25,25 +16,44 @@ Bundle 'terryma/vim-expand-region'
 Bundle 'tpope/vim-fugitive'
 "see git diff on the left
 Bundle 'vim-gitgutter'
-"see buffers in status bar
-"Bundle 'bling/vim-bufferline'
 "status line
 Bundle 'bling/vim-airline'
-"Bundle 'Lokaltog/powerline' 
 Bundle 'Lokaltog/powerline-fonts'
 "syntax checking
 Bundle 'scrooloose/syntastic'
+"fuzzy search
+Bundle 'kien/ctrlp.vim'
+"python error checking
+Bundle 'kevinw/pyflakes-vim'
+"folding
+Bundle 'Crapworks/python_fn.vim'
+
+"themes
+let base16colorspace=256  " Access colours present in 256 colorspace
+Bundle 'moria'
+Bundle 'chriskempson/base16-vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'Slava/vim-colors-tomorrow'
+syntax on
+set t_Co=256 "256 colours
+set background=dark
+colorscheme moria
+set laststatus=2
 
 "airline settings
-"let g:airline_theme             = 'powerlineish'
+"let g:airline_theme             = 'solarized'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
+let g:airline_powerline_fonts = 1 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline_powerline_fonts = 1 
+let g:gitgutter_fix_bg = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
 
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+"add line numbering
+set number
+"set relativenumber
 
 "
 filetype indent plugin on
@@ -59,6 +69,8 @@ set undofile
 let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>p :bp<CR>
 
 "git mappings
 nnoremap <Leader>gs :Gstatus<CR>
@@ -70,12 +82,13 @@ nnoremap <Leader>gb :Git branch <Space>
 nnoremap <Leader>gg :Ggrep <Space>
 
 "copy and paste to system clipboard
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
+set clipboard=unnamed
+"vmap <Leader>y "+y
+"vmap <Leader>d "+d
+"nmap <Leader>p "+p
+"nmap <Leader>P "+P
+"vmap <Leader>p "+p
+"vmap <Leader>P "+P
 
 "visual selections
 nmap <Leader><Leader> V
