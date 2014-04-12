@@ -40,6 +40,7 @@ set t_Co=256 "256 colours
 set background=dark
 colorscheme moria
 set laststatus=2
+"set lazyredraw
 
 "airline settings
 "let g:airline_theme             = 'solarized'
