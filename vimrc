@@ -34,6 +34,7 @@ Bundle 'moria'
 Bundle 'chriskempson/base16-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Slava/vim-colors-tomorrow'
+Bundle 'junegunn/seoul256.vim'
 syntax on
 set t_Co=256 "256 colours
 set background=dark
