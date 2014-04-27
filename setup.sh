@@ -5,12 +5,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 if [ ! -d "~./vim/bundle/vundle" ]; then
     echo "It doesn't look like vundle is installed at ~/.vim/bundle/vundle, installing now..."
-    if [ ! -d "~/.vim" ]; then
-       mkdir ~/.vim
-    fi
-    if [ ! -d "~/.vim/bundle"]; then
-        mkdir ~/.vim/bundle
-    fi
     git clone https://github.com/gmarik/Vundle.vim ~/.vim/bundle/vundle
 else
     echo "Looks like vundle is installed at ~/.vim/bundle/vundle, great!"
