@@ -90,9 +90,13 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
-                                    { "open terminal", terminal }
+mymainmenu = awful.menu({ items = { { "&firefox", "firefox" },
+                                    { "&LibreOffice", "libreoffice4.2" },
+                                    { "&awesome", myawesomemenu },
+--                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "&Debian", debian.menu.Debian_menu.Debian },
+                                    { "open &terminal", terminal },
+                                    { "sh&utdown", "cb-exit" }
                                   }
                         })
 
@@ -214,7 +218,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
+    awful.key({ modkey,           }, "x", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -269,7 +273,7 @@ globalkeys = awful.util.table.join(
     -- Prompt
     awful.key({ modkey },          "r",       function () mypromptbox[mouse.screen]:run() end),
 
-    awful.key({ modkey }, "x",
+    awful.key({ modkey, "Modk" }, "r",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },
                   mypromptbox[mouse.screen].widget,
