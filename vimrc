@@ -38,7 +38,7 @@ Bundle 'junegunn/seoul256.vim'
 syntax on
 set t_Co=256 "256 colours
 set background=dark
-colorscheme moria
+"colorscheme moria
 set laststatus=2
 "set lazyredraw
 
