@@ -31,8 +31,8 @@ ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/bash_aliases ~/.bash_aliases
 
 echo "rc files linked, sanity check with diff..."
-diff ~/.bashrc $DIR/bashrc
-diff ~/.vimrc $DIR/vimrc
-diff ~/.bash_aliases $DIR/bash_aliases
+diff -s ~/.bashrc $DIR/bashrc
+diff -s ~/.vimrc $DIR/vimrc
+diff -s ~/.bash_aliases $DIR/bash_aliases
 
 exit 0
