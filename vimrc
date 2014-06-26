@@ -70,8 +70,9 @@ set undofile
 let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>n :bn<CR>
-nnoremap <Leader>p :bp<CR>
+nnoremap <c-n> :bn<CR>
+nnoremap <c-p> :bp<CR>
+command! -range -nargs=0 -bar JsonTool <line1>,<line2>!python -m json.tool
 
 "git mappings
 nnoremap <Leader>gs :Gstatus<CR>
