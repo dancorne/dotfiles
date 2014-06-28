@@ -166,3 +166,6 @@
 # }
 # 
 # alias cd=cd_func
+
+#Pass through for Ctrl-S to work in vim
+stty -ixon
