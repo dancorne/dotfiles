@@ -55,6 +55,10 @@ let g:gitgutter_fix_bg = 1
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 
+"CtrlP
+"remap to use <c-p> below
+let g:ctrlp_map = '<Leader>o'
+
 "add line numbering
 set number
 "set relativenumber
@@ -71,7 +75,6 @@ set undofile
 
 "frequently used
 let mapleader = "\<Space>"
-nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
