@@ -27,6 +27,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kevinw/pyflakes-vim'
 "folding
 Bundle 'Crapworks/python_fn.vim'
+"wiki
+Bundle 'vimwiki/vimwiki'
 
 "themes
 let base16colorspace=256  " Access colours present in 256 colorspace
