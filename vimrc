@@ -29,6 +29,8 @@ Bundle 'kevinw/pyflakes-vim'
 Bundle 'Crapworks/python_fn.vim'
 "wiki
 Bundle 'vimwiki/vimwiki'
+"tmux integration
+Bundle 'christoomey/vim-tmux-navigator'
 
 "themes
 let base16colorspace=256  " Access colours present in 256 colorspace
