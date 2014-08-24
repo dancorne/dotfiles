@@ -10,15 +10,15 @@ else
     echo "Looks like vundle is installed at ~/.vim/bundle/vundle, great!"
 fi
 
-if [ -e ~/.bashrc ]; then
-    echo "~/.bashrc detected. Backing up..."
-    mv ~/.bashrc ~/.bashrc.backup
-fi
-
-if [ -e ~/.vimrc ]; then
-    echo "~/.vimrc detected. Backing up..."
-    mv ~/.vimrc ~/.vimrc.backup
-fi
+for f in $DIR/{bashrc,tmux.conf,zshrc,gitconfig}
+do
+    name=$(basename $f)
+    if [ -e ~/.$name ]; then
+        echo "~/.$name detected. Backing up..."
+        mv ~/.$name ~/.$name.backup
+    fi
+    ln -s $f ~/.$name
+done
 
 if [ -e ~/.bash_aliases ]; then
     echo "~/.bash_aliases detected, stealing aliases and backing up..."
@@ -26,13 +26,21 @@ if [ -e ~/.bash_aliases ]; then
     cat ~/.bash_aliases.backup >> $DIR/bash_aliases
 fi
 
-ln -s $DIR/bashrc ~/.bashrc
-ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/bash_aliases ~/.bash_aliases
 
 echo "rc files linked, sanity check with diff..."
-diff -s ~/.bashrc $DIR/bashrc
-diff -s ~/.vimrc $DIR/vimrc
-diff -s ~/.bash_aliases $DIR/bash_aliases
+for f in $DIR/{bashrc,bash_aliases,tmux.conf,zshrc,gitconfig}
+do
+    name=$(basename $f)
+    diff -s ~/.$name $f
+done
+
+echo "Setting global username and email address for git..."
+echo "What is your name?"
+read username
+echo "What is your email address?"
+read email
+git config --global user.name "$username"
+git config --global user.email "$email"
 
 exit 0
