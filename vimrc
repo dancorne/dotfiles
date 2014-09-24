@@ -32,6 +32,13 @@ Bundle 'vimwiki/vimwiki'
 "tmux integration
 Bundle 'christoomey/vim-tmux-navigator'
 
+"some latex-based settings
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_CompileRule_pdf = 'latexmk -pdf -pvc $*'
+set iskeyword+=:
+
 "themes
 let base16colorspace=256  " Access colours present in 256 colorspace
 Bundle 'moria'
