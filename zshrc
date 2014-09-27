@@ -7,6 +7,8 @@ setopt autocd extendedglob
 unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
+# completion
 autoload -U compinit
-compinit
-
+compinit 
+#reverse-interactive-search
+bindkey '^R' history-incremental-search-backward
