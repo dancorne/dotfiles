@@ -135,3 +135,8 @@ set wildmode=longest,list,full
 
 "editing multiple files
 set hidden "allow hiding unsaved files, rather than closing them
+
+"clean up directories
+set undodir=~/.vim/undo,/tmp
+set directory=~/.vim/swp,/tmp
+set backupdir=~/.vim/backup,/tmp
