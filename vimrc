@@ -117,7 +117,6 @@ set clipboard=unnamed
 "vmap <Leader>P "+P
 
 "visual selections
-nmap <Leader><Leader> V
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
