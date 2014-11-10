@@ -31,6 +31,8 @@ Bundle 'Crapworks/python_fn.vim'
 Bundle 'vimwiki/vimwiki'
 "tmux integration
 Bundle 'christoomey/vim-tmux-navigator'
+"ack
+Bundle 'mileszs/ack.vim'
 
 "some latex-based settings
 set grepprg=grep\ -nH\ $*
@@ -94,6 +96,7 @@ imap <c-p> <Esc>:bp<CR>
 nmap <c-w> :bd<CR>
 imap <c-w> <Esc>:bd<CR>
 command! -range -nargs=0 -bar JsonTool <line1>,<line2>!python -m json.tool
+nnoremap <Leader><Leader> :Ack!<space>
 
 "git mappings
 nnoremap <Leader>gs :Gstatus<CR>
