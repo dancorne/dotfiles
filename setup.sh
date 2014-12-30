@@ -10,7 +10,7 @@ else
     echo "Looks like vundle is installed at ~/.vim/bundle/vundle, great!"
 fi
 
-for f in $DIR/{bashrc,tmux.conf,zshrc,gitconfig}
+for f in $DIR/{vimrc,bashrc,tmux.conf,zshrc,gitconfig}
 do
     name=$(basename $f)
     if [ -e ~/.$name ]; then
