@@ -1,0 +1,24 @@
+---
+- hosts: 
+    - all
+  tasks:
+
+    - name: Ensure .vim directories
+      file: dest=~/.vim/{{ item }} state=directory
+      with_items:
+        - swp
+        - backup
+
+    - name: Install Plug.vim
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: ~/.vim/autoload
+
+    - name: Copy dotfiles over
+      copy: src={{ item }} dest=~/.{{ item }}
+      with_items:
+        - vimrc
+        - bashrc
+        - bash_aliases
+        - gitconfig
+        - tmux.conf
