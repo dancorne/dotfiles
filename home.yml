@@ -8,6 +8,7 @@
       with_items:
         - swp
         - backup
+        - autoload
 
     - name: Install Plug.vim
       get_url:
