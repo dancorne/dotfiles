@@ -21,7 +21,10 @@ fi
    source "${HOME}/.bash_aliases"
  fi
 
-export EDITOR=vim
+EDITOR=vim
+TERM=screen-256color
+
+export TERM EDITOR
 
 #Pass through for Ctrl-S to work in vim
 stty -ixon
