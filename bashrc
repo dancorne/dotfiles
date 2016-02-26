@@ -31,5 +31,8 @@ TERM=screen-256color
 
 export TERM EDITOR
 
+# Complete SSH hosts
+complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
+
 #Pass through for Ctrl-S to work in vim
 stty -ixon
