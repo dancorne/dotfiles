@@ -14,6 +14,11 @@ fi
  [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
 
+# virtualenvs
+export PROJECT_HOME=$HOME/code
+export WORKON_HOME=$PROJECT_HOME/.venv
+[[ -f  /usr/bin/virtualenvwrapper.sh ]] && . /usr/bin/virtualenvwrapper.sh
+
 # Aliases
 #
 # Some people use a different file for aliases
