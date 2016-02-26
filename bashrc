@@ -21,5 +21,7 @@ fi
    source "${HOME}/.bash_aliases"
  fi
 
+export EDITOR=vim
+
 #Pass through for Ctrl-S to work in vim
 stty -ixon
