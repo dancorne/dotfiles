@@ -24,9 +24,8 @@
 (use-package diminish)
 
 
-;; Need these for evil
-(use-package undo-tree)
-
+(use-package undo-tree
+  :diminish undo-tree-mode)
 (use-package goto-chg)
 
 ;; Enable evil mode
@@ -107,14 +106,14 @@
 		      "S-<tab>" 'helm-previous-line))
 
 (use-package which-key
-  :diminish 'which-key
+  :diminish which-key-mode
   :init
   (which-key-mode)
   :config
   (setq which-key-sort-order'which-key-key-order-alpha))
 
 (use-package flycheck
-  :diminish 'flycheck
+  :diminish flycheck-mode
   :init
   (global-flycheck-mode)
   :config
@@ -151,7 +150,7 @@
 (visual-line-mode 1)
 
 (use-package helm
-  :diminish Helm
+  :diminish helm-mode
   :config
   (helm-mode 1))
 
