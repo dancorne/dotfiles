@@ -178,7 +178,6 @@
       browse-url-generic-program "xdg-open")
 (setq indent-tabs-mode nil)
 (global-auto-revert-mode 1)
-(visual-line-mode t)
 (setq scroll-margin 5
       scroll-conservatively 9999
       scroll-step 1)
