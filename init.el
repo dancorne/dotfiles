@@ -181,6 +181,7 @@
 (setq scroll-margin 5
       scroll-conservatively 9999
       scroll-step 1)
+(setq auto-window-vscroll nil)
 
 ;; No splash screen
 (setq inhibit-startup-message t
