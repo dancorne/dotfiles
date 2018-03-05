@@ -161,6 +161,13 @@
   (add-to-list 'projectile-globally-ignored-directories ".stversions")
   (setq projectile-switch-project-action '(lambda () (ranger (projectile-project-root)))))
 
+(use-package perspective
+  :config
+  (persp-mode)
+  (general-define-key :prefix "C-x x"
+		      "l" 'persp-next
+		      "h" 'persp-prev))
+  
 (use-package helm-projectile)
 
 (use-package helm-ag
