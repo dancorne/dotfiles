@@ -225,6 +225,8 @@ SCHEDULED: %t")))
   :config
   (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
 
+(use-package yasnippet)
+
 ;; Git stuff
 (use-package magit
   :config
