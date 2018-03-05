@@ -1,6 +1,6 @@
 ---
 - hosts: 
-    - all
+    - all:!laptop
   tasks:
 
     - name: Ensure .vim directories

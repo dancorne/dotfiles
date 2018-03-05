@@ -201,30 +201,47 @@
   :config
   ;(global-set-key "\C-ca" 'org-agenda)
   ; List files to include in agenda
-  (setq org-agenda-files '("~/org/" "~/.org-jira/"))
+  (setq org-agenda-files '("~/org/" "~/.org-jira/")
 
-  (setq org-todo-keywords
-	'((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELLED")))
+	org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELLED"))
 
-  ; Capture templates
-  (setq org-capture-templates
-	'(("a" "My TODO task format." entry
-	   (file "Inbox.org")
+	org-capture-templates
+	'(("t" "Todo" entry
+	   (file "Personal.org")
 	   "* TODO %?
-SCHEDULED: %t")))
+SCHEDULED: %t")
+	  ("n" "Note" entry
+	   (file "Personal.org")
+	   "* %?"))
 
-  (setq org-agenda-custom-commands
+        org-agenda-custom-commands
 	'(("j" "JIRA"
 	   ((agenda "-TODO=\"DONE\"-TODO=\"CANCELLED\""
 		    ((org-agenda-overriding-header "Scheduled tasks:")))
 	    (alltodo  "-TODO=\"DONE\"-TODO=\"CANCELLED\""
 		      ((org-agenda-overriding-header "Backlog:"))))
 	   ((org-agenda-files '("~/.org-jira"))
-	    (org-agenda-compact-blocks t))))))
+	    (org-agenda-compact-blocks t))))
+
+	org-log-into-drawer "LOGBOOK"
+
+	org-refile-targets '(( nil :maxlevel . 10))
+	org-refile-allow-creating-parent-notes 'confirm
+
+	org-log-done 'time)
+
+  ;; Allow these languages to run in source blocks
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (calc . t)
+     (python . t)
+     (R . t))))
 
 (use-package org-jira
   :config
-  (setq jiralib-url ""))
+  (setq jiralib-url ""
+	org-jira-default-jql "assignee = currentUser() and status not in (Closed, Resolved) and sprint in openSprints()"))
 ; In ${HOME}/.authinfo: machine your-site.atlassian.net login you@example.com password yourPassword port 80
 
 (use-package org-pomodoro
