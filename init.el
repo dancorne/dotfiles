@@ -35,6 +35,8 @@
   ; Enter insert mode straightaway when adding note
   (add-hook 'org-log-buffer-setup-hook #'evil-insert-state))
 
+(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+
 (use-package general
   :config
   (general-evil-setup)
