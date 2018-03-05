@@ -301,9 +301,11 @@ SCHEDULED: %t")))
  '(custom-safe-themes
    (quote
     ("81db42d019a738d388596533bd1b5d66aef3663842172f3696733c0aab05a150" default)))
+ '(magit-commit-arguments (quote ("--verbose")))
+ '(magit-rebase-arguments nil)
  '(package-selected-packages
    (quote
-    (bash-completion diminish org-pomodoro diff-hl yaml-mode which-key web-mode use-package restclient ranger php-mode org-jira helm-projectile helm-ag gruvbox-theme git-gutter-fringe general fzf flycheck evil-org evil-magit evil-leader evil-collection dumb-jump ansible-vault ansible-doc ansible))))
+    (yasnippet perspective bash-completion diminish org-pomodoro diff-hl yaml-mode which-key web-mode use-package restclient ranger php-mode org-jira helm-projectile helm-ag gruvbox-theme git-gutter-fringe general fzf flycheck evil-org evil-magit evil-leader evil-collection dumb-jump ansible-vault ansible-doc ansible))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
