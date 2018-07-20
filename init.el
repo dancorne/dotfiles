@@ -22,7 +22,9 @@
 (eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t)
 
-(use-package diminish)
+(use-package diminish
+  :config
+  (diminish 'auto-revert-mode))
 
 
 (use-package undo-tree
