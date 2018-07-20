@@ -269,6 +269,7 @@
    'org-babel-load-languages
    '((emacs-lisp . t)
      (calc . t)
+     (shell . t)
      (python . t)
      (R . t))))
 
