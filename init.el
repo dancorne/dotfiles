@@ -142,6 +142,9 @@
 
 (use-package highlight-symbol
   :hook prog-mode)
+(use-package json-mode
+  :mode ("\\.json.j2\\'" . json-mode)
+  :init (setq js-indent-level 2))
 (use-package php-mode)
 (use-package web-mode)
 
