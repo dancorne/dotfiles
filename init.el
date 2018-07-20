@@ -140,6 +140,8 @@
   (setq ansible::vault-password-file ""))
 (use-package  ansible-doc)
 
+(use-package highlight-symbol
+  :hook prog-mode)
 (use-package php-mode)
 (use-package web-mode)
 
