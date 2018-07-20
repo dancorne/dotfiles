@@ -210,6 +210,8 @@
       scroll-conservatively 9999
       scroll-step 1)
 (setq auto-window-vscroll nil)
+(display-time-mode 1)
+(global-hl-line-mode 1)
 
 ;; No splash screen
 (setq inhibit-startup-message t
