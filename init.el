@@ -216,6 +216,15 @@
       inhibit-startup-echo-area-message t)
 
 (setq confirm-kill-processes nil)
+
+(use-package spaceline
+  :init
+  (use-package spaceline-config :ensure nil)
+  (spaceline-emacs-theme)
+  ;(spaceline-info-mode)
+  (spaceline-helm-mode)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
+
 ;; Org-mode stuff
 (use-package org
   :config
