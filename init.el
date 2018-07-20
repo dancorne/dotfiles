@@ -33,10 +33,12 @@
 
 ;; Enable evil mode
 (use-package evil
+  :init (setq evil-want-integration nil)
   :config
   (evil-mode 1)
   ; Enter insert mode straightaway when adding note
-  (add-hook 'org-log-buffer-setup-hook #'evil-insert-state))
+  (add-hook 'org-log-buffer-setup-hook #'evil-insert-state)
+  (add-hook 'evil-insert-state-exit-hook '(lambda() (if (buffer-file-name)(save-buffer)))))
 
 (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
@@ -326,10 +328,8 @@
 
 ;; Disabled
 (use-package evil-collection
-  :ensure nil
-  :disabled
   :requires (evil)
-  :custom (evil-collection-setup-minibuffer t)
+  ;:custom (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
 
