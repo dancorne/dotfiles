@@ -133,6 +133,7 @@
 ;; Ansible stuff
 (use-package yaml-mode)
 (use-package ansible
+  :diminish ansible-mode
   :init
   (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
   :config
