@@ -194,7 +194,7 @@
 
 (use-package helm-ag
   :config
-  (setq helm-ag-base-command "rg --no-heading"))
+  (setq helm-ag-base-command "rg --no-heading --smart-case"))
 
 ;; Diff side by side
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
