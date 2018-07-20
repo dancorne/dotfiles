@@ -69,6 +69,9 @@
 		      "p" 'helm-projectile-switch-project
 		      "SPC" 'helm-projectile-ag)
 
+  (general-define-key :prefix "C-c"
+		      "a" 'org-agenda
+		      "c" 'org-capture)
   ;; All states/modes with Ctrl
   (general-define-key "C-e" 'move-end-of-line ; Override evil binding back to emacs
 		      "M-l" 'windmove-right
