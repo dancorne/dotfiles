@@ -166,7 +166,11 @@
 
 (use-package helm
   :diminish helm-mode
+  :bind (("C-x b" . helm-mini)
+	 ("C-x C-b" . helm-mini)
+	 ("M-x" . helm-M-x))
   :config
+  (setq helm-ff-skip-boring-files t)
   (helm-mode 1))
 
 (use-package projectile
