@@ -10,7 +10,8 @@
 				   ("melpa" . 10)))
 
 ;; Get latest evil to workaround this issue: https://github.com/noctuid/general.el/issues/106
-(setq package-pinned-packages '((evil . "melpa")))
+(setq package-pinned-packages '((evil . "melpa")
+				(use-package . "melpa")))
 (package-initialize)
 
 ;; Install use-package if not installed
