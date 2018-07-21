@@ -2,10 +2,10 @@
 "PLUGINS
 call plug#begin('~/.config/nvim/plugged')
 "Vim+tmux navigation
-Plug 'christoomey/vim-tmux-navigator'
-"Ansible filetype
+Plug 'christoomey/vim-tmux-navigator' "Ansible filetype
+"Syntax highlighting
 Plug 'chase/vim-ansible-yaml'
-"Plug 'MicahElliott/Rocannon' "Doesn't look nice with gruvbox :(
+Plug 'sheerun/vim-polyglot'
 "Git tools
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -15,10 +15,6 @@ Plug 'jpo/vim-railscasts-theme'
 Plug 'KKPMW/moonshine-vim'
 Plug 'morhetz/gruvbox'
 Plug 'AlessandroYorba/Despacio'
-"Running Make stuff
-Plug 'benekastah/neomake'
-"SimplenoteList etc
-Plug 'mrtazz/simplenote.vim'
 ":SQLUFormatter to format SQL
 Plug 'vim-scripts/SQLUtilities'
 Plug 'vim-scripts/Align'
@@ -36,20 +32,29 @@ Plug 'mbbill/undotree'
 "ysaW etc. for surrounding
 Plug 'tpope/vim-surround'
 "Task and wiki
-Plug 'vimwiki/vimwiki'
-Plug 'tbabej/taskwiki'
-Plug 'blindFS/vim-taskwarrior'
-"Org-mode
-"Plug 'dhruvasagar/vim-dotoo'
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
+Plug 'freitass/todo.txt-vim'
+Plug 'alok/notational-fzf-vim'
+"Live previews of patterns and substitutions
+Plug 'markonm/traces.vim'
+"Integration with ipython
+Plug 'ivanov/vim-ipython'
+"LSP plugins for completion and syntax checking
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'ryanolsonx/vim-lsp-python'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 
 ""BEHAVIOUR
 syntax enable
 set number
 set hidden
+set cursorline
 let mapleader = "\<Space>"
+"Open file at same line as when closed
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
 
 filetype indent plugin on
 set backspace=indent,eol,start
@@ -63,19 +68,15 @@ set mouse=r
 set directory=~/.vim/swp
 set backupdir=~/.vim/backup
 
-nmap <c-n> :bn<CR>
-imap <c-n> <Esc>:bn<CR>
-"vmap <c-n> <Esc>:bn<CR>
-"tmap <c-n> <c-\><c-n>:bn<CR>
-nmap <c-p> :bp<CR>
-imap <c-p> <Esc>:bp<CR>
-"vmap <c-p> <Esc>:bp<CR>
-"tmap <c-p> <c-\><c-n>:bp<CR>
-autocmd! BufWritePost,BufEnter * Neomake
-
-
 ""TOOLS
+"Format JSON
 command! -range -nargs=0 -bar JsonTool <line1>,<line2>!python -m json.tool
+
+"in case sudo is forgotten
+cmap w!! %!sudo tee > /dev/null %
+
+"F5 adds a timestamp
+map <F5> o<CR><ESC>:put =strftime('%c')<CR>==o
 
 fun! RangerChooser()
   exec "silent !ranger --choosefile=/tmp/chosenfile " .           expand("%:p:h")
@@ -93,10 +94,6 @@ nmap - :Lexplore<CR>
 let g:netrw_preview = 1
 let g:netrw_winsize = 15
 
-"in case sudo is forgotten
-cmap w!! %!sudo tee > /dev/null %
-
-
 ""GIT
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>ga :Git add %:p<CR><CR>
@@ -106,25 +103,6 @@ nnoremap <Leader>go :Git checkout <Space>
 nnoremap <Leader>gb :Git branch <Space>
 nnoremap <Leader>gg :Ggrep <Space>
 
-
-""SIMPLENOTE
-let g:SimplenoteUsername = ""
-let g:SimplenotePassword = ""
-let g:SimplenoteVertical = 1
-
-
-""WIKI
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1}]
-map <F5> o<CR><ESC>:put =strftime('%c')<CR>==o
-autocmd BufWritePost,BufEnter *.wiki TaskWikiBufferLoad
-let g:taskwiki_sort_order="urgency+"
-let g:taskwiki_sort_orders={"U": "urgency-","T": "project+,due-"}
-
-let g:org_agenda_files = ['~/org/*.org']
-
-let g:dotoo#agenda#files = ['~/org/*.org']
-let g:dotoo#capture#refile = ['~/refile.org']
-
 ""SEARCH
 set ignorecase
 set smartcase
@@ -133,10 +111,16 @@ set incsearch
 set wildmenu
 set wildmode=longest,list,full
 
-nnoremap <Leader><Leader> :Ag<CR>
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+nnoremap <Leader><Leader> :Rg<CR>
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>c :Commits<CR>
-nnoremap <Leader>h :History:<CR>
+"nnoremap <Leader>h :History:<CR> "Conflicts with gitgutter
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>t :Tags<CR>
 "let g:fzf_commits_log_options = 'log1'
@@ -149,6 +133,7 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
 if executable('rg')
     set grepprg=rg\ --vimgrep
     set grepformat=%f:%l:%c:%m
@@ -165,17 +150,57 @@ endif
 syntax on
 set t_Co=256 "256 colours
 set background=dark
+set termguicolors
 colorscheme gruvbox
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 
+""NOTES
+"Diary shortcut
+nnoremap <Leader>w<Leader>w :vsplit ~/Notes/diary/`date +\%Y-\%m-\%d`.md<CR>
+"Search all Markdown headings
+nnoremap <Leader>n :NV ^#<CR>
+"TODO Shortcuts for searching todo.txt
+nnoremap <Leader>a :vimgrep "(A)" ~/Notes/todo.txt<CR>
+
+let g:nv_default_extension = '.md'
+let g:nv_search_paths = ['~/Notes']
+let g:nv_keymap = {
+                    \ 'ctrl-s': 'split ',
+                    \ 'ctrl-v': 'vertical split ',
+                    \ 'ctrl-t': 'tabedit ',
+                    \ }
+let g:nv_create_note_key = 'ctrl-x'
+let g:nv_create_note_window = 'vertical split'
+let g:nv_show_preview = 1
+let g:nv_wrap_preview_text = 1
+let g:nv_preview_width = 150
+let g:nv_preview_direction = 'right'
+let g:nv_use_short_pathnames = 1
+let g:nv_expect_keys = []
+
+""CODE
+nnoremap gd :LspDefinition<CR>
+
+let g:asyncomplete_auto_popup = 1
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_signs_error = {'text': '✖'}
+let g:lsp_signs_warning = {'text': '⚠'}
+let g:lsp_signs_hint = {'text': '?'}
+
+highlight link LspErrorText GruvboxRedSign
+highlight link LspWarningText GruvboxRedSign
 
 ""PYTHON
-let g:neomake_python_enabled_makers = ['flake8', 'pep8']
-" E501 is line length of 80 characters
-let g:neomake_python_flake8_maker = { 'args': ['--ignore=E501'], }
-let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=200'], }
-
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
 
 ""LATEX
 let g:tex_flavor='latex'
@@ -186,3 +211,6 @@ set iskeyword+=:
 
 ""ANSIBLE
 autocmd BufRead,BufNewFile *.yml setlocal filetype=ansible
+" vim-ansible-yaml seems to do syntax highlighting better but conflicts with
+" polyglot so we'll disable this, at least for now.
+let g:polyglot_disabled = ['ansible']
