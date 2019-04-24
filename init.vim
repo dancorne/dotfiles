@@ -2,7 +2,7 @@
 "PLUGINS
 call plug#begin('~/.config/nvim/plugged')
 "Vim+tmux navigation
-Plug 'christoomey/vim-tmux-navigator' "Ansible filetype
+Plug 'christoomey/vim-tmux-navigator'
 "Syntax highlighting
 Plug 'chase/vim-ansible-yaml'
 Plug 'sheerun/vim-polyglot'
@@ -14,6 +14,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'jpo/vim-railscasts-theme'
 Plug 'KKPMW/moonshine-vim'
 Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'AlessandroYorba/Despacio'
 ":SQLUFormatter to format SQL
 Plug 'vim-scripts/SQLUtilities'
@@ -44,7 +45,11 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'ryanolsonx/vim-lsp-python'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
+
+let g:gutentags_cache_dir = "~/.nvim/tags"
 
 ""BEHAVIOUR
 syntax enable
@@ -65,6 +70,8 @@ set softtabstop=4
 
 set mouse=r
 
+set undofile
+set undodir=~/.vim/undodir
 set directory=~/.vim/swp
 set backupdir=~/.vim/backup
 
@@ -96,12 +103,13 @@ let g:netrw_winsize = 15
 
 ""GIT
 nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>ga :Git add %:p<CR><CR>
+nnoremap <Leader>ga :Gwrite<CR>
 nnoremap <Leader>gc :Gcommit -v -q <CR>
 nnoremap <Leader>gd :Gitdiff<CR>
 nnoremap <Leader>go :Git checkout <Space>
 nnoremap <Leader>gb :Git branch <Space>
 nnoremap <Leader>gg :Ggrep <Space>
+autocmd BufWritePost * execute 'GitGutterAll'
 
 ""SEARCH
 set ignorecase
@@ -151,20 +159,23 @@ syntax on
 set t_Co=256 "256 colours
 set background=dark
 set termguicolors
-colorscheme gruvbox
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+colorscheme gruvbox8
+" Set for transparent terminals
+"highlight Normal guibg=none ctermbg=none
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:^
+"set statusline=%F%m%r%h%w%=%y[%l,%c][%L][%{&ff}][%p%%]
+set statusline=%<%f\ %h%m%r(%{FugitiveHead()})%{tagbar#currenttag('[%s]','')}%=%y[%l,%c][%L][%{&ff}][%p%%]
 
 ""NOTES
 "Diary shortcut
-nnoremap <Leader>w<Leader>w :vsplit ~/Notes/diary/`date +\%Y-\%m-\%d`.md<CR>
+nnoremap <Leader>w<Leader>w :vsplit ~/notes/diary/`date +\%Y-\%W`.md<CR>
 "Search all Markdown headings
 nnoremap <Leader>n :NV ^#<CR>
 "TODO Shortcuts for searching todo.txt
-nnoremap <Leader>a :vimgrep "(A)" ~/Notes/todo.txt<CR>
+nnoremap <Leader>a :vimgrep "(A)" ~/notes/todo.txt<CR>
 
 let g:nv_default_extension = '.md'
-let g:nv_search_paths = ['~/Notes']
+let g:nv_search_paths = ['~/notes']
 let g:nv_keymap = {
                     \ 'ctrl-s': 'split ',
                     \ 'ctrl-v': 'vertical split ',
@@ -174,7 +185,7 @@ let g:nv_create_note_key = 'ctrl-x'
 let g:nv_create_note_window = 'vertical split'
 let g:nv_show_preview = 1
 let g:nv_wrap_preview_text = 1
-let g:nv_preview_width = 150
+let g:nv_preview_width = 100
 let g:nv_preview_direction = 'right'
 let g:nv_use_short_pathnames = 1
 let g:nv_expect_keys = []
@@ -188,9 +199,11 @@ let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_signs_error = {'text': '✖'}
 let g:lsp_signs_warning = {'text': '⚠'}
 let g:lsp_signs_hint = {'text': '?'}
+let g:lsp_virtual_text_enabled = 0
+let g:lsp_highlights_enabled = 0
 
 highlight link LspErrorText GruvboxRedSign
-highlight link LspWarningText GruvboxRedSign
+highlight link LspWarningText GruvboxYellowSign
 
 ""PYTHON
 if executable('pyls')
@@ -210,7 +223,5 @@ set iskeyword+=:
 
 
 ""ANSIBLE
-autocmd BufRead,BufNewFile *.yml setlocal filetype=ansible
-" vim-ansible-yaml seems to do syntax highlighting better but conflicts with
-" polyglot so we'll disable this, at least for now.
-let g:polyglot_disabled = ['ansible']
+autocmd BufRead,BufNewFile *.yml setlocal filetype=ansible foldmethod=indent
+set foldlevelstart=99
