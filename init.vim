@@ -40,16 +40,15 @@ Plug 'markonm/traces.vim'
 "Integration with ipython
 Plug 'ivanov/vim-ipython'
 "LSP plugins for completion and syntax checking
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'ryanolsonx/vim-lsp-python'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+"
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 let g:gutentags_cache_dir = "~/.nvim/tags"
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 ""BEHAVIOUR
 syntax enable
@@ -191,29 +190,45 @@ let g:nv_use_short_pathnames = 1
 let g:nv_expect_keys = []
 
 ""CODE
-nnoremap gd :LspDefinition<CR>
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'yaml': ['yaml-language-server', '--stdio'],
+    \ 'ansible': ['yaml-language-server', '--stdio'],
+    \ }
 
-let g:asyncomplete_auto_popup = 1
-let g:lsp_signs_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_signs_error = {'text': '✖'}
-let g:lsp_signs_warning = {'text': '⚠'}
-let g:lsp_signs_hint = {'text': '?'}
-let g:lsp_virtual_text_enabled = 0
-let g:lsp_highlights_enabled = 0
+au FileType python setlocal formatprg=black\ -l\ 120\ --quiet\ -
+nnoremap <Leader>p :!2to3 --nobackups -w %<CR>
+" YAML schemas: http://schemastore.org/api/json/catalog.json
+let settings = json_decode('
+\{
+\    "yaml": {
+\        "completion": true,
+\        "hover": true,
+\        "validate": true,
+\        "schemas": {
+\            "http://json.schemastore.org/ansible-stable-2.7": "/*"
+\        },
+\        "format": {
+\            "enable": true
+\        }
+\    },
+\    "http": {
+\        "proxyStrictSSL": true
+\    }
+\}')
+let g:LanguageClient_useVirtualText = 0
+function SetLSPShortcuts()
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+endfunction()
 
-highlight link LspErrorText GruvboxRedSign
-highlight link LspWarningText GruvboxYellowSign
-
-""PYTHON
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
+augroup LSP
+  autocmd!
+  autocmd FileType python,ansible,yaml call SetLSPShortcuts()
+  autocmd User LanguageClientStarted call LanguageClient#Notify(
+        \ 'workspace/didChangeConfiguration', {'settings': settings})
+augroup END
 
 ""LATEX
 let g:tex_flavor='latex'
