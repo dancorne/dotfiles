@@ -5,7 +5,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 "Syntax highlighting
 Plug 'chase/vim-ansible-yaml'
-Plug 'sheerun/vim-polyglot'
+Plug 'hashivim/vim-terraform'
 "Git tools
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
