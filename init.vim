@@ -127,7 +127,7 @@ command! -bang -nargs=* Rg
 nnoremap <Leader><Leader> :Rg<CR>
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>c :Commits<CR>
-"nnoremap <Leader>h :History:<CR> "Conflicts with gitgutter
+nnoremap <Leader>: :History:<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>t :Tags<CR>
 "let g:fzf_commits_log_options = 'log1'
