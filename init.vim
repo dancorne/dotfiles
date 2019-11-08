@@ -164,6 +164,7 @@ colorscheme gruvbox8
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:^
 "set statusline=%F%m%r%h%w%=%y[%l,%c][%L][%{&ff}][%p%%]
 set statusline=%<%f\ %h%m%r(%{FugitiveHead()})%{tagbar#currenttag('[%s]','')}%=%y[%l,%c][%L][%{&ff}][%p%%]
+set signcolumn=yes
 
 ""NOTES
 "Diary shortcut
