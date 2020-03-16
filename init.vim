@@ -192,7 +192,7 @@ let g:nv_expect_keys = []
 
 ""CODE
 let g:LanguageClient_serverCommands = {
-    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'python': ['pyls'],
     \ 'yaml': ['yaml-language-server', '--stdio'],
     \ 'ansible': ['yaml-language-server', '--stdio'],
     \ }
