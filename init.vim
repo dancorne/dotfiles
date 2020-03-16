@@ -222,6 +222,7 @@ function SetLSPShortcuts()
   nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
   nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
   nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  inoremap <c-n> <c-x><c-o>
 endfunction()
 
 augroup LSP
