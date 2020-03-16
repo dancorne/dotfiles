@@ -217,7 +217,7 @@ let settings = json_decode('
 \        "proxyStrictSSL": true
 \    }
 \}')
-let g:LanguageClient_useVirtualText = 0
+let g:LanguageClient_useVirtualText = "No"
 function SetLSPShortcuts()
   nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
   nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
