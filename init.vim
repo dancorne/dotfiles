@@ -232,6 +232,11 @@ augroup LSP
         \ 'workspace/didChangeConfiguration', {'settings': settings})
 augroup END
 
+"let g:LanguageClient_loggingLevel = 'INFO'
+"let g:LanguageClient_virtualTextPrefix = ''
+"let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+"let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+"
 ""LATEX
 let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat = 'pdf'
