@@ -3,11 +3,11 @@
 #Get dotfiles directory, in case different to ~/dotfiles
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-if [ ! -d ~/.vim/bundle/vundle ]; then
-    echo "It doesn't look like vundle is installed at ~/.vim/bundle/vundle, installing now..."
-    git clone https://github.com/gmarik/Vundle.vim ~/.vim/bundle/vundle
+if [ ! -d ~/.config/nvim/autoload/plug.vim ]; then
+    echo "It doesn't look like plug.vim is installed at ~/.config/nvim/autoload/, installing now..."
+    curl --create-dirs -Lo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 else
-    echo "Looks like vundle is installed at ~/.vim/bundle/vundle, great!"
+    echo "Looks like plug.vim is installed at ~/.config/nvim/ great!"
 fi
 
 for f in $DIR/{vimrc,bashrc,tmux.conf,zshrc,gitconfig}
