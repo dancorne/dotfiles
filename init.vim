@@ -242,6 +242,7 @@ let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_CompileRule_pdf = 'latexmk -pdf -pvc $*'
 set iskeyword+=:
+autocmd FileType tex setlocal makeprg=pdflatex\ --shell-escape\ '%'
 
 
 ""ANSIBLE
