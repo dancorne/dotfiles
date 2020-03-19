@@ -120,8 +120,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
---local battery_widget = require("awesome-wm-widgets.spotify-widget.spotify")
-
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -164,16 +162,6 @@ local tasklist_buttons = gears.table.join(
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
                                           end))
-
---if screen.count() == 1 then
---    awful.tags[1] = awful.tag({ 'web', 'dev', 'misc', 'mail', 'chat', 'pass' }, 1, awful.layout.layouts[2])
---else
---    awful.tags[1] = awful.tag({ 'local', 'dev', 'sta', 'prod', 'win' }, 2, awful.layout.layouts[2])
---    awful.tags[2] = awful.tag({ 'web', 'chat', 'mail', 'music', 'pass' }, 1, awful.layout.layouts[2])
---    for s = 3, screen.count() do
---        awful.tags[3] = awful.tag({'1', '2', '3' }, s, layouts[2])
---    end
---end
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -339,8 +327,8 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    --awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-    --          {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+              {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
