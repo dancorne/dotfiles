@@ -246,70 +246,44 @@ hs.hotkey.bind(hyper, 'l', nil, function() hs.execute('/usr/local/bin/chunkc til
 hs.hotkey.bind(hyper, 'j', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --focus south') end) 
 hs.hotkey.bind(hyper, 'k', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --focus north') end) 
 
--- equalize size of windows
-hs.hotkey.bind(hyper, '0', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --equalize') end) 
 
--- swap window
---hs.hotkey.bind(hyper, 'h', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --swap west') end)
---hs.hotkey.bind(hyper, 'j', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --swap south') end)
---hs.hotkey.bind(hyper, 'k', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --swap north') end)
---hs.hotkey.bind(hyper, 'l', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --swap east') end)
+-- Window Management
+hs.hotkey.bind(hyper, 'h', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus west') end) 
+hs.hotkey.bind(hyper, 'l', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus east') end) 
+hs.hotkey.bind(hyper, 'j', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus south') end) 
+hs.hotkey.bind(hyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus north') end) 
+
+-- equalize size of windows
+hs.hotkey.bind(hyper, '0', nil, function() hs.execute('/usr/local/bin/yabai -m space --balance') end) 
 
 -- move window
-hs.hotkey.bind(cmdhyper, 'h', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --warp west') end)
-hs.hotkey.bind(cmdhyper, 'j', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --warp south') end)
-hs.hotkey.bind(cmdhyper, 'k', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --warp north') end)
-hs.hotkey.bind(cmdhyper, 'l', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --warp east') end)
+hs.hotkey.bind(cmdhyper, 'h', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp west') end)
+hs.hotkey.bind(cmdhyper, 'j', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp south') end)
+hs.hotkey.bind(cmdhyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp north') end)
+hs.hotkey.bind(cmdhyper, 'l', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp east') end)
 
 -- make floating window fill screen
-hs.hotkey.bind(hyper, 'up', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --grid-layout 1:1:0:0:1:1') end)
+hs.hotkey.bind(hyper, 'up', nil, function() hs.execute('/usr/local/bin/yabai -m window --grid 1:1:0:0:1:1') end)
 -- make floating window fill left-half of screen
-hs.hotkey.bind(hyper, 'left', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --grid-layout 1:2:0:0:1:1') end)
+hs.hotkey.bind(hyper, 'left', nil, function() hs.execute('/usr/local/bin/yabai -m window --grid 1:2:0:0:1:1') end)
 -- make floating window fill right-half of screen
-hs.hotkey.bind(hyper, 'right', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --grid-layout 1:2:1:0:1:1') end)
-
--- fast focus desktop
-hs.hotkey.bind(hyper, 'x', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus $(/usr/local/bin/chunkc get _last_active_desktop)') end)
-hs.hotkey.bind(hyper, 'z', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus prev') end)
-hs.hotkey.bind(hyper, 'c', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus next') end)
-hs.hotkey.bind(hyper, '1', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus 1') end)
-hs.hotkey.bind(hyper, '2', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus 2') end)
-hs.hotkey.bind(hyper, '3', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus 3') end)
-hs.hotkey.bind(hyper, '4', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus 4') end)
-hs.hotkey.bind(hyper, '5', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus 5') end)
-hs.hotkey.bind(hyper, '6', nil, function() hs.execute('/usr/local/bin/chunkc tiling::desktop --focus 6') end)
-
--- send window to desktop
-hs.hotkey.bind(cmdhyper, 'x', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop $(/usr/local/bin/chunkc get _last_active_desktop)') end)
-hs.hotkey.bind(cmdhyper, 'z', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop prev') end)
-hs.hotkey.bind(cmdhyper, 'c', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop next') end)
-hs.hotkey.bind(cmdhyper, '1', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop 1') end)
-hs.hotkey.bind(cmdhyper, '2', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop 2') end)
-hs.hotkey.bind(cmdhyper, '3', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop 3') end)
-hs.hotkey.bind(cmdhyper, '4', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop 4') end)
-hs.hotkey.bind(cmdhyper, '5', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop 5') end)
-hs.hotkey.bind(cmdhyper, '6', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --send-to-desktop 6') end)
+hs.hotkey.bind(hyper, 'right', nil, function() hs.execute('/usr/local/bin/yabai -m window --grid 1:2:1:0:1:1') end)
 
 -- increase region size
-hs.hotkey.bind(hyper, 'a', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west') end)
-hs.hotkey.bind(hyper, 's', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge south') end)
-hs.hotkey.bind(hyper, 'w', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north') end)
-hs.hotkey.bind(hyper, 'd', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge east') end)
-
--- decrease region size
-hs.hotkey.bind(cmdhyper, 'a', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge west') end)
-hs.hotkey.bind(cmdhyper, 's', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge south') end)
-hs.hotkey.bind(cmdhyper, 'w', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north') end)
-hs.hotkey.bind(cmdhyper, 'd', nil, function () hs.execute('/usr/local/bin/chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east') end)
+-- TODO Only works for windows in the bottom/left
+hs.hotkey.bind(hyper, 'a', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize right:-50:0') end)
+hs.hotkey.bind(hyper, 's', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize top:0:50') end)
+hs.hotkey.bind(hyper, 'w', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize top:0:-50') end)
+hs.hotkey.bind(hyper, 'd', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize right:50:0') end)
 
 -- focus monitor
-hs.hotkey.bind(hyper, 'n', nil, function() hs.execute('/usr/local/bin/chunkc tiling::monitor -f prev') end)
-hs.hotkey.bind(hyper, 'm', nil, function() hs.execute('/usr/local/bin/chunkc tiling::monitor -f next') end)
+hs.hotkey.bind(hyper, 'n', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus prev') end)
+hs.hotkey.bind(hyper, 'm', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus next') end)
 
 -- send window to monitor and follow focus
-hs.hotkey.bind(hyper, 'p', nil, function() hs.execute('WINDOWID=$(/usr/local/bin/chunkc tiling::query --window id) && /usr/local/bin/chunkc tiling::window --send-to-monitor next && /usr/local/bin/chunkc tiling::window --focus $WINDOWID') end)
-hs.hotkey.bind(hyper, 'o', nil, function() hs.execute('WINDOWID=$(/usr/local/bin/chunkc tiling::query --window id) && /usr/local/bin/chunkc tiling::window --send-to-monitor prev && /usr/local/bin/chunkc tiling::window --focus $WINDOWID') end)
+hs.hotkey.bind(hyper, 'o', nil, function() hs.execute('WINDOWID=$(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq ".[] | select(.focused == 1) | .id") ; /usr/local/bin/yabai -m window --display next || /usr/local/bin/yabai -m window --display first; /usr/local/bin/yabai -m window --focus ${WINDOWID}') end)
 
-hs.hotkey.bind(hyper, 'f', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --toggle fullscreen') end)
+-- toggle window fullscreen
+hs.hotkey.bind(hyper, 'f', nil, function() hs.execute('/usr/local/bin/yabai -m window --toggle zoom-fullscreen') end)
 
 -- vim: set expandtab shiftwidth=2:
