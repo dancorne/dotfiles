@@ -106,11 +106,20 @@ hs.chooser.globalCallback = open_proj_prompt
 
 -- Shortcuts: Webex prompt
 function open_webex(tbl)
-  local cmd = string.format('open -a firefox "%s"', tbl['url'])
+  if not tbl then
+    return
+  end
+  browser = "firefox"
+  local cmd = string.format('open -a %s "%s"', browser, tbl['url'])
   local output, status = hs.execute(cmd)
+  if status == nil then
+    hs.notify.new({title="Hammerspoon", informativeText="Problem loading URL, see Hammerspoon Console for more details."}):send()
+    log:e(cmd)
+    log:e(output)
+    log:e(status)
+  end
 end
-hs.hotkey.bind(hyper, 'F12', function()
-  local choices = {
+meeting_choices = {
     {
       ["text"] = "Meeting1",
       ["url"] = "Meeting1 URL"
@@ -118,11 +127,23 @@ hs.hotkey.bind(hyper, 'F12', function()
     {
       ["text"] = "Meeting2",
       ["url"] = "Meeting2 URL"
-    },
+    }
+  }
+hs.hotkey.bind(hyper, 'F12', function()
   webex_chooser = hs.chooser.new(open_webex)
-  webex_chooser:choices(choices)
+  webex_chooser:choices(meeting_choices)
   webex_chooser:show()
 end)
+function meeting_popup(meeting_notification)
+  log:e(meeting_notification:title())
+  for key, value in pairs(meeting_choices) do
+    log:e(hs.inspect(value))
+    if value.text == meeting_notification:title() then
+      item = value
+    end
+  end
+  open_webex(item)
+end
 
 
 -- Status Bar
