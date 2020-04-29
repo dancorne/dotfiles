@@ -283,6 +283,9 @@ hs.hotkey.bind(cmdhyper, 'j', nil, function() hs.execute('/usr/local/bin/yabai -
 hs.hotkey.bind(cmdhyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp north') end)
 hs.hotkey.bind(cmdhyper, 'l', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp east') end)
 
+-- change how windows are split
+hs.hotkey.bind(hyper, '\\', nil, function() hs.execute('/usr/local/bin/yabai -m window --toggle split') end)
+
 -- make floating window fill screen
 hs.hotkey.bind(hyper, 'up', nil, function() hs.execute('/usr/local/bin/yabai -m window --grid 1:1:0:0:1:1') end)
 -- make floating window fill left-half of screen
