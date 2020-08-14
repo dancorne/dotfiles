@@ -12,12 +12,17 @@ fi
 # Uncomment to turn on programmable completion enhancements.
 # Any completions you add in ~/.bash_completion are sourced last.
  [[ -f /etc/bash_completion ]] && . /etc/bash_completion
+ [[ -f $HOME/etc/bash_aliases ]] && . $HOME/etc/bash_aliases
+
+export GOPATH=~/go
+export PATH=$PATH:$HOME/bin:$GOPATH/bin:$HOME/.local/bin
 
 
 # virtualenvs
 export PROJECT_HOME=$HOME/code
 export WORKON_HOME=$PROJECT_HOME/.venv
-[[ -f  /usr/bin/virtualenvwrapper.sh ]] && . /usr/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+[[ -f  $HOME/.local/bin/virtualenvwrapper_lazy.sh ]] && . $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
 # Aliases
 #
@@ -34,6 +39,8 @@ TERM=screen-256color
 ANSIBLE_NOCOWS=1
 
 export TERM EDITOR HISTSIZE HISTFILESIZE ANSIBLE_NOCOWS
+
+set -o vi
 
 # Change prompt after non-zero exit codes to red
 __prompt_command() {
@@ -63,3 +70,18 @@ complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g 
 
 #Pass through for Ctrl-S to work in vim
 stty -ixon
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# Secrets
+DO_API_TOKEN=
+REDDIT_CLIENTID=
+REDDIT_SECRET=
+B2_ACCOUNT_ID=
+B2_ACCOUNT_KEY=
+RESTIC_REPOSITORY=
+RESTIC_PASSWORD_FILE=
+
+[[ -f  $HOME/.env ]] && . $HOME/.env
+export DO_API_TOKEN REDDIT_CLIENTID REDDIT_SECRET B2_ACCOUNT_ID B2_ACCOUNT_KEY RESTIC_REPOSITORY RESTIC_PASSWORD_FILE
+
