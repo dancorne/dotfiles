@@ -7,9 +7,6 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
-  faux_multiplier: 3
-  auto_scroll: false
-tabspaces: 8
 font:
   normal:
     family: Menlo
@@ -51,7 +48,7 @@ colors:
 visual_bell:
   animation: EaseOutExpo
   duration: 0
-background_opacity: 0.9
+background_opacity: 1.0
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 mouse:
