@@ -3,7 +3,7 @@ window:
     x: 2
     y: 2
   dynamic_padding: false
-  decorations: none
+  decorations: buttonless
 scrolling:
   history: 10000
   multiplier: 3
