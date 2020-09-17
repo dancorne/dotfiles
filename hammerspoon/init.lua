@@ -211,42 +211,15 @@ function get_timew()
   timew_menu:setTitle(string.format("Working on: %s", tags))
   timew_menu:setMenu(timew_menu_options)
 end
-
--- Status Bar: Todo.txt
-function get_todo_data()
-  local todotxt = io.open('/Users/dan/notes/work.todo.txt', 'r')
-  local todos = {}
-  local thisweek = {}
-  local countA = 0
-  local countDone = 0
-  for line in todotxt:lines() do
-    table.insert(todos, line);
-    if line:sub(1,1) == 'x' then
-      countDone = countDone + 1
-    elseif line:sub(1, 3) == '(A)' then
-      countA = countA + 1
-      table.insert(thisweek, {title = line})
-    end
-  end
-  io.close(todotxt)
-  --local new_todotxt = "\n" .. todotxt -- Workaround for simpler pattern matching below
-  --local _, countA = string.gsub(new_todotxt, '\n%(A%)', '')
-  --local _, countB = string.gsub(new_todotxt, '\n%(B%)', '')
-  --local _, countDone = string.gsub(new_todotxt, '\nx', '')
-  todo_menu:setTitle(string.format("%s ☐ %s ☑", countA, countDone))
-  todo_menu:setMenu(thisweek)
-end
     
 -- Status Bar: General
 function update_menuinfo()
   spotify_status()
   get_timew()
-  get_todo_data()
 end
 
 spotify_menu = hs.menubar.new()
 timew_menu = hs.menubar.new()
-todo_menu = hs.menubar.new()
 menubar_timer = hs.timer.new(10, update_menuinfo, true):start()
 update_menuinfo()
 
