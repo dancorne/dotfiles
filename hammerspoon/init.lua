@@ -83,14 +83,6 @@ hs.window.animationDuration = 0
 --  log:i(hs.inspect(hs.window.orderedWindows()))
 --end
 
--- Screen Managemnt: Chunkwm
-hs.hotkey.bind(hyper, 'h', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --focus west') end) 
---hs.hotkey.bind(hyper, 'j', nil, function() hs.execute('/usr/local/bin//usr/local/bin/chunkc tiling::window --focus south') end) 
---hs.hotkey.bind(hyper, 'k', nil, function() hs.execute('/usr/local/bin//usr/local/bin/chunkc tiling::window --focus north') end) 
-hs.hotkey.bind(hyper, 'l', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --focus east') end) 
-hs.hotkey.bind(hyper, 'j', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --focus south') end) 
-hs.hotkey.bind(hyper, 'k', nil, function() hs.execute('/usr/local/bin/chunkc tiling::window --focus north') end) 
-
 
 -- Window Management
 hs.hotkey.bind(hyper, 'h', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus west') end) 
