@@ -74,6 +74,48 @@ spotify_menu = hs.menubar.new()
 menubar_timer = hs.timer.new(10, update_menuinfo, true):start()
 update_menuinfo()
 
+-- Choosers
+-- Chooser: Lastpass Clipboard
+function chooser_get_lpass()
+  local output, status, _, rc = hs.execute('/usr/local/bin/lpass ls')
+  if status == nil then
+    hs.notify.new({title="Hammerspoon", informativeText='Running lpass command failed, see log for details'})
+    log:e(string.format('Getting lpass password list return code %d: %s', rc, output))
+    return {}
+  end
+
+  local passwords_table = {}
+  for line in output:gmatch('[^\n]+') do
+    password_name = line:gsub(' %[id:.+%]', ''):gsub('%(none%)/', '')
+    if not password_name:match('/$') then
+      table.insert(passwords_table, {['text'] = password_name})
+    end
+  end
+
+  return passwords_table
+end
+
+function chooser_paste_lpass(choice)
+  if choice == nil then
+    return
+  end
+  local cmd = string.format('/usr/local/bin/lpass show --password "%s"', choice['text'])
+  local output, status, _, rc = hs.execute(cmd)
+  if status == nil then
+    hs.notify.new({title="Hammerspoon", informativeText='Running lpass command failed, see log for details'})
+    log:e(string.format('Getting lpass password return code %d: %s', rc, output))
+  end
+  password = output:gsub('\n', '')
+  hs.eventtap.keyStrokes(password)
+end
+password_chooser = hs.chooser.new(chooser_paste_lpass)
+password_chooser:choices(chooser_get_lpass)
+hs.hotkey.bind(althyper, 'v', function()
+  password_chooser:refreshChoicesCallback()
+  password_chooser:show()
+end)
+
+
 -- Screen Management
 hs.window.animationDuration = 0 
 
