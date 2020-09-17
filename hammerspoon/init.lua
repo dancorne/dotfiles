@@ -36,7 +36,7 @@ end)
 -- Shortcuts
 -- Shortcuts: Common programs
 hs.hotkey.bind(hyper, "return", function()
-    local output, status = hs.execute("open -n -a /Users/dan/code/alacritty/target/release/osx/Alacritty.app")
+    local output, status = hs.execute("open -n -a Alacritty.app")
     if status == nil then
       log:e(string.format('Opening terminal failed: %s', output))
     end
