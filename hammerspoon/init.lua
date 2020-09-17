@@ -42,67 +42,6 @@ hs.hotkey.bind(hyper, "return", function()
     end
 end)
 
--- Shortcuts: Timewarrior prompt
-function timewarrior(tbl)
-  if tbl == nil then
-    return
-  end
-  if tbl["text"] == "stop" or tbl["text"] == "continue" then
-    cmd = "/usr/local/bin/timew "
-  elseif tbl["update"] then
-    cmd = "/usr/local/bin/timew tag @1 "
-  else
-    cmd = "/usr/local/bin/timew start "
-  end
-  log:i(string.format("Running command: %s", cmd .. tbl["text"]))
-  local output, status = hs.execute(cmd .. tbl["text"])
-  if status == nil then
-    log:e(string.format("Output: %s", output))
-  else
-    log:i(string.format("Output: %s", output))
-  end
-  get_timew()
-end
-
-type_choices = {
-  { ["text"] = "dev" },
-  { ["text"] = "support" },
-  { ["text"] = "incident" },
-  { ["text"] = "meeting" },
-  { ["text"] = "admin" },
-  { ["text"] = "recruit", ["noproject"] = true },
-  { ["text"] = "stop", ["noproject"] = true },
-  { ["text"] = "continue", ["noproject"] = true }
-}
-proj_choices = {
-  { ["text"] = "project1", ["update"] = true },
-  { ["text"] = "project2", ["update"] = true },
-  { ["text"] = "project3", ["update"] = true }
-}
-
-type_chooser = hs.chooser.new(timewarrior)
-type_chooser:choices(type_choices)
-proj_chooser = hs.chooser.new(timewarrior)
-proj_chooser:choices(proj_choices)
-
-function timewarrior_prompt()
-  type_chooser:show()
-end
-hs.hotkey.bind(hyper, 't', nil, timewarrior_prompt)
-
-function open_proj_prompt(chooser, event)
-  if event == 'willOpen' then
-    focused_window = hs.window.focusedWindow()
-    return
-  end
-  if event == 'didClose' then
-    focused_window:focus()
-    if chooser == type_chooser and not type_chooser:selectedRowContents()["noproject"] then
-      proj_chooser:show()
-    end
-  end
-end
-hs.chooser.globalCallback = open_proj_prompt
 
 -- Shortcuts: Webex prompt
 function open_webex(tbl)
@@ -168,58 +107,12 @@ function spotify_status()
   end
 end
 
--- Status Bar: Timewarrior
-function run_timew(timew_tags)
-  if timew_tags:find('^stop') then
-    cmd = string.format('/usr/local/bin/timew %s', timew_tags)
-    msg = string.format('Stopped time logging')
-  elseif timew_tags:find('^continue') then
-    cmd = string.format('/usr/local/bin/timew %s', timew_tags)
-    msg = string.format('Continuing work')
-  else
-    cmd = string.format('/usr/local/bin/timew start %s', timew_tags)
-    msg = string.format("Starting work on %s", timew_tags)
-  end
-  local output, status = hs.execute(cmd)
-  if status == nil then
-    hs.notify.new({title="Hammerspoon", informativeText='Running timew command failed, see log for details'})
-    log:e(string.format('Command: %s', cmd))
-    log:e(output)
-  else
-    hs.notify.new({title="Hammerspoon", informativeText=msg}):send()
-    get_timew()
-  end
-end
-timew_options = { "dev", "support", "incident", "meeting", "admin", "recruit" }
-function timew_menu_wrapperfunction(_, item)
-  run_timew(item["title"])
-  get_timew()
-end
-function build_timew_menu(timew_options)
-  local options = {}
-  for _, option in pairs(timew_options) do
-    table.insert(options, { title = option, fn = timew_menu_wrapperfunction })
-  end
-  return options
-end
-timew_menu_options = build_timew_menu(timew_options)
-
-function get_timew()
-  local cmd = string.format('/usr/local/bin/timew')
-  local output, status = hs.execute(cmd)
-  local tags = output:match('Tracking (.-)\n.*')
-  timew_menu:setTitle(string.format("Working on: %s", tags))
-  timew_menu:setMenu(timew_menu_options)
-end
-    
 -- Status Bar: General
 function update_menuinfo()
   spotify_status()
-  get_timew()
 end
 
 spotify_menu = hs.menubar.new()
-timew_menu = hs.menubar.new()
 menubar_timer = hs.timer.new(10, update_menuinfo, true):start()
 update_menuinfo()
 
