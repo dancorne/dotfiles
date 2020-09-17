@@ -1,7 +1,7 @@
 -- Useful command: hs.inspect(hs.keycodes.map)
 -- Hyper key defined in Karabiner-Elements (capslock when held)
-local hyper = {'alt', 'ctrl', 'shift'}
-local cmdhyper = {'cmd', 'alt', 'ctrl', 'shift'}
+local hyper = {'cmd', 'ctrl', 'shift'}
+local althyper = {'cmd', 'alt', 'ctrl', 'shift'}
 local log = hs.logger.new('main')
 hs.logger.setGlobalLogLevel('info')
 
@@ -278,10 +278,10 @@ hs.hotkey.bind(hyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m w
 hs.hotkey.bind(hyper, '0', nil, function() hs.execute('/usr/local/bin/yabai -m space --balance') end) 
 
 -- move window
-hs.hotkey.bind(cmdhyper, 'h', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp west') end)
-hs.hotkey.bind(cmdhyper, 'j', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp south') end)
-hs.hotkey.bind(cmdhyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp north') end)
-hs.hotkey.bind(cmdhyper, 'l', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp east') end)
+hs.hotkey.bind(althyper, 'h', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp west') end)
+hs.hotkey.bind(althyper, 'j', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp south') end)
+hs.hotkey.bind(althyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp north') end)
+hs.hotkey.bind(althyper, 'l', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp east') end)
 
 -- change how windows are split
 hs.hotkey.bind(hyper, '\\', nil, function() hs.execute('/usr/local/bin/yabai -m window --toggle split') end)
