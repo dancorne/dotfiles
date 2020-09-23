@@ -152,6 +152,22 @@ elseif executable('ack')
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
+" Project selector
+function! s:projects_sink(lines)
+  if len(a:lines) < 1
+    return
+  endif
+  let dir = a:lines[0]
+  execute 'cd' dir
+  call fzf#vim#files(dir, {})
+endfunction
+
+function! ProjectileProject()
+  let projects = 'find ~/code -maxdepth 2 -type d -name "*.git" -exec dirname {} \;'
+  return fzf#run(fzf#wrap('projects', {'source': projects, 'sink*': function('s:projects_sink')}))
+endfunction 
+nnoremap <Leader>p :call ProjectileProject()<CR>
+
 
 ""THEME
 syntax on
@@ -198,7 +214,6 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 au FileType python setlocal formatprg=black\ -l\ 120\ --quiet\ -
-nnoremap <Leader>p :!2to3 --nobackups -w %<CR>
 " YAML schemas: http://schemastore.org/api/json/catalog.json
 let settings = json_decode('
 \{
