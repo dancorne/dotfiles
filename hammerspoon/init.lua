@@ -161,8 +161,8 @@ hs.hotkey.bind(hyper, 'w', nil, function () hs.execute('/usr/local/bin/yabai -m 
 hs.hotkey.bind(hyper, 'd', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize right:50:0') end)
 
 -- focus monitor
-hs.hotkey.bind(hyper, '[', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus prev') end)
-hs.hotkey.bind(hyper, ']', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus next') end)
+hs.hotkey.bind(hyper, '[', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus prev || /usr/local/bin/yabai -m display --focus last') end)
+hs.hotkey.bind(hyper, ']', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus next || /usr/local/bin/yabai -m display --focus first') end)
 
 -- send window to monitor and follow focus
 hs.hotkey.bind(hyper, 'o', nil, function() hs.execute('WINDOWID=$(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq ".[] | select(.focused == 1) | .id") ; /usr/local/bin/yabai -m window --display next || /usr/local/bin/yabai -m window --display first; /usr/local/bin/yabai -m window --focus ${WINDOWID}') end)
