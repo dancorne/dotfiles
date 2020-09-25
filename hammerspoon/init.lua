@@ -166,7 +166,12 @@ hs.hotkey.bind(hyper, '[', nil, function() hs.execute(yabai_bin .. ' -m display 
 hs.hotkey.bind(hyper, ']', nil, function() hs.execute(yabai_bin .. ' -m display --focus next || ' .. yabai_bin .. ' -m display --focus first') end)
 
 -- send window to monitor and follow focus
-hs.hotkey.bind(hyper, 'o', nil, function() hs.execute('WINDOWID=$(' .. yabai_bin .. ' -m query --windows | /usr/local/bin/jq ".[] | select(.focused == 1) | .id") ; ' .. yabai_bin .. ' -m window --display next || ' .. yabai_bin .. ' -m window --display first; ' .. yabai_bin .. ' -m window --focus ${WINDOWID}') end)
+function send_window_to_next_monitor()
+  local current_window = hs.window.focusedWindow()
+  hs.execute(yabai_bin .. ' -m window --display next || ' .. yabai_bin .. ' -m window --display first')
+  current_window:focus()
+end
+hs.hotkey.bind(hyper, 'o', nil, send_window_to_next_monitor)
 
 -- toggle window fullscreen
 hs.hotkey.bind(hyper, 'f', nil, function() hs.execute(yabai_bin .. ' -m window --toggle zoom-fullscreen') end)
