@@ -127,47 +127,48 @@ hs.window.animationDuration = 0
 
 
 -- Window Management
-hs.hotkey.bind(hyper, 'h', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus west') end) 
-hs.hotkey.bind(hyper, 'l', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus east') end) 
-hs.hotkey.bind(hyper, 'j', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus south') end) 
-hs.hotkey.bind(hyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m window --focus north') end) 
+yabai_bin = '/usr/local/bin/yabai'
+hs.hotkey.bind(hyper, 'h', nil, function() hs.execute(yabai_bin .. ' -m window --focus west') end) 
+hs.hotkey.bind(hyper, 'l', nil, function() hs.execute(yabai_bin .. ' -m window --focus east') end) 
+hs.hotkey.bind(hyper, 'j', nil, function() hs.execute(yabai_bin .. ' -m window --focus south') end) 
+hs.hotkey.bind(hyper, 'k', nil, function() hs.execute(yabai_bin .. ' -m window --focus north') end) 
 
 -- equalize size of windows
-hs.hotkey.bind(hyper, '0', nil, function() hs.execute('/usr/local/bin/yabai -m space --balance') end) 
+hs.hotkey.bind(hyper, '0', nil, function() hs.execute(yabai_bin .. ' -m space --balance') end) 
 
 -- move window
-hs.hotkey.bind(althyper, 'h', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp west') end)
-hs.hotkey.bind(althyper, 'j', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp south') end)
-hs.hotkey.bind(althyper, 'k', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp north') end)
-hs.hotkey.bind(althyper, 'l', nil, function() hs.execute('/usr/local/bin/yabai -m window --warp east') end)
+hs.hotkey.bind(althyper, 'h', nil, function() hs.execute(yabai_bin .. ' -m window --warp west') end)
+hs.hotkey.bind(althyper, 'j', nil, function() hs.execute(yabai_bin .. ' -m window --warp south') end)
+hs.hotkey.bind(althyper, 'k', nil, function() hs.execute(yabai_bin .. ' -m window --warp north') end)
+hs.hotkey.bind(althyper, 'l', nil, function() hs.execute(yabai_bin .. ' -m window --warp east') end)
 
 -- change how windows are split
-hs.hotkey.bind(hyper, '\\', nil, function() hs.execute('/usr/local/bin/yabai -m window --toggle split') end)
+hs.hotkey.bind(hyper, '\\', nil, function() hs.execute(yabai_bin .. ' -m window --toggle split') end)
 
 -- make floating window fill screen
-hs.hotkey.bind(hyper, 'up', nil, function() hs.execute('/usr/local/bin/yabai -m window --grid 1:1:0:0:1:1') end)
+hs.hotkey.bind(hyper, 'up', nil, function() hs.execute(yabai_bin .. ' -m window --grid 1:1:0:0:1:1') end)
 -- make floating window fill left-half of screen
-hs.hotkey.bind(hyper, 'left', nil, function() hs.execute('/usr/local/bin/yabai -m window --grid 1:2:0:0:1:1') end)
+hs.hotkey.bind(hyper, 'left', nil, function() hs.execute(yabai_bin .. ' -m window --grid 1:2:0:0:1:1') end)
 -- make floating window fill right-half of screen
-hs.hotkey.bind(hyper, 'right', nil, function() hs.execute('/usr/local/bin/yabai -m window --grid 1:2:1:0:1:1') end)
+hs.hotkey.bind(hyper, 'right', nil, function() hs.execute(yabai_bin .. ' -m window --grid 1:2:1:0:1:1') end)
 -- hide window, it feels more natural to have a hyper-key binding rather than just use CMD+H
 hs.hotkey.bind(hyper, 'm', nil, function() hs.window.focusedWindow():application():hide() end)
 
 -- increase region size
 -- TODO Only works for windows in the bottom/left
-hs.hotkey.bind(hyper, 'a', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize right:-50:0') end)
-hs.hotkey.bind(hyper, 's', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize top:0:50') end)
-hs.hotkey.bind(hyper, 'w', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize top:0:-50') end)
-hs.hotkey.bind(hyper, 'd', nil, function () hs.execute('/usr/local/bin/yabai -m window --resize right:50:0') end)
+hs.hotkey.bind(hyper, 'a', nil, function () hs.execute(yabai_bin .. ' -m window --resize right:-50:0') end)
+hs.hotkey.bind(hyper, 's', nil, function () hs.execute(yabai_bin .. ' -m window --resize top:0:50') end)
+hs.hotkey.bind(hyper, 'w', nil, function () hs.execute(yabai_bin .. ' -m window --resize top:0:-50') end)
+hs.hotkey.bind(hyper, 'd', nil, function () hs.execute(yabai_bin .. ' -m window --resize right:50:0') end)
 
 -- focus monitor
-hs.hotkey.bind(hyper, '[', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus prev || /usr/local/bin/yabai -m display --focus last') end)
-hs.hotkey.bind(hyper, ']', nil, function() hs.execute('/usr/local/bin/yabai -m display --focus next || /usr/local/bin/yabai -m display --focus first') end)
+hs.hotkey.bind(hyper, '[', nil, function() hs.execute(yabai_bin .. ' -m display --focus prev || ' .. yabai_bin .. ' -m display --focus last') end)
+hs.hotkey.bind(hyper, ']', nil, function() hs.execute(yabai_bin .. ' -m display --focus next || ' .. yabai_bin .. ' -m display --focus first') end)
 
 -- send window to monitor and follow focus
-hs.hotkey.bind(hyper, 'o', nil, function() hs.execute('WINDOWID=$(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq ".[] | select(.focused == 1) | .id") ; /usr/local/bin/yabai -m window --display next || /usr/local/bin/yabai -m window --display first; /usr/local/bin/yabai -m window --focus ${WINDOWID}') end)
+hs.hotkey.bind(hyper, 'o', nil, function() hs.execute('WINDOWID=$(' .. yabai_bin .. ' -m query --windows | /usr/local/bin/jq ".[] | select(.focused == 1) | .id") ; ' .. yabai_bin .. ' -m window --display next || ' .. yabai_bin .. ' -m window --display first; ' .. yabai_bin .. ' -m window --focus ${WINDOWID}') end)
 
 -- toggle window fullscreen
-hs.hotkey.bind(hyper, 'f', nil, function() hs.execute('/usr/local/bin/yabai -m window --toggle zoom-fullscreen') end)
+hs.hotkey.bind(hyper, 'f', nil, function() hs.execute(yabai_bin .. ' -m window --toggle zoom-fullscreen') end)
 
 -- vim: set expandtab shiftwidth=2:
