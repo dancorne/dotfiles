@@ -47,7 +47,6 @@ Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 let g:gutentags_cache_dir = "~/.nvim/tags"
-let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
 ""BEHAVIOUR
