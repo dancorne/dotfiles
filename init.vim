@@ -108,6 +108,8 @@ nnoremap <Leader>go :Git checkout <Space>
 nnoremap <Leader>gb :Git branch <Space>
 nnoremap <Leader>gg :Ggrep <Space>
 autocmd BufWritePost * execute 'GitGutterAll'
+autocmd Filetype gitcommit setlocal spell textwidth=72
+hi def link gitcommitOverflow Error
 
 ""SEARCH
 set ignorecase
