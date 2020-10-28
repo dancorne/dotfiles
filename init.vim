@@ -160,14 +160,28 @@ function! s:projects_sink(lines)
   let dir = a:lines[0]
   execute 'cd' dir
   call fzf#vim#files(dir, {})
+  startinsert
+  " https://github.com/junegunn/fzf/issues/426
+  if has("nvim")
+    call feedkeys('i')
+  endif
 endfunction
 
 function! ProjectileProject()
   let projects = 'find ~/code -maxdepth 2 -type d -name "*.git" -exec dirname {} \;'
   return fzf#run(fzf#wrap('projects', {'source': projects, 'sink*': function('s:projects_sink')}))
+  "return fzf#run('files', {'source': projects, 'sink*': 'cd'})
 endfunction 
 nnoremap <Leader>p :call ProjectileProject()<CR>
 
+
+function! EnteringBuffer()
+    let top_level = system("git rev-parse --show-toplevel")
+    echom top_level
+    echom v:shell_error
+endfunction
+"autocmd BufEnter * call EnteringBuffer()
+set autochdir
 
 ""THEME
 syntax on
