@@ -226,6 +226,8 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'yaml': ['yaml-language-server', '--stdio'],
     \ 'ansible': ['yaml-language-server', '--stdio'],
+    \ 'terraform': ['~/bin/terraform-lsp'],
+    \ 'ruby': ['~/bin/terraform-lsp'],
     \ }
 
 au FileType python setlocal formatprg=black\ -l\ 120\ --quiet\ -
@@ -257,7 +259,7 @@ endfunction()
 
 augroup LSP
   autocmd!
-  autocmd FileType python,ansible,yaml call SetLSPShortcuts()
+  autocmd FileType python,ansible,yaml,terraform,ruby call SetLSPShortcuts()
   autocmd User LanguageClientStarted call LanguageClient#Notify(
         \ 'workspace/didChangeConfiguration', {'settings': settings})
 augroup END
