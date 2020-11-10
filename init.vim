@@ -178,6 +178,9 @@ nnoremap <Leader>p :call ProjectileProject()<CR>
 
 
 function! EnteringBuffer()
+    if matchstr(expand('%:p'), 'term://')
+	return
+    endif
     exe 'cd  %:p:h'
     let top_level = system("git rev-parse --show-toplevel")
     if v:shell_error == 0
