@@ -65,6 +65,7 @@ set modeline
 set tabstop=8
 set shiftwidth=4
 set softtabstop=4
+set splitright
 
 set mouse=r
 
@@ -284,3 +285,8 @@ autocmd FileType tex setlocal makeprg=pdflatex\ --shell-escape\ '%'
 ""ANSIBLE
 autocmd BufRead,BufNewFile *.yml setlocal filetype=ansible foldmethod=indent
 set foldlevelstart=99
+
+
+""TERRAFORM TERRAGRUNT
+"Only works when in the infrastructure-live root
+command! Terragrunt vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??' -- terragrunt plan
