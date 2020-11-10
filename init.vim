@@ -160,7 +160,6 @@ function! s:projects_sink(lines)
     return
   endif
   let dir = a:lines[0]
-  execute 'cd' dir
   call fzf#vim#files(dir, {})
   startinsert
   " https://github.com/junegunn/fzf/issues/426
@@ -178,12 +177,16 @@ nnoremap <Leader>p :call ProjectileProject()<CR>
 
 
 function! EnteringBuffer()
+    exe 'cd  %:p:h'
     let top_level = system("git rev-parse --show-toplevel")
-    echom top_level
-    echom v:shell_error
+    if v:shell_error == 0
+	exe 'cd' top_level
+    elseif v:shell_error != 128
+        echom v:shell_error
+    endif
 endfunction
-"autocmd BufEnter * call EnteringBuffer()
-set autochdir
+autocmd BufEnter * call EnteringBuffer()
+"set autochdir
 
 ""THEME
 syntax on
