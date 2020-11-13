@@ -115,6 +115,35 @@ hs.hotkey.bind(althyper, 'v', function()
   password_chooser:show()
 end)
 
+-- Chooser: Meetings Chooser
+function meeting_choices()
+  meeting_choices = {
+    {
+      ["text"] = "Meeting 1",
+      ["url"] = "https://meet.google.com/ID"
+    }
+  }
+  return meeting_choices
+end
+
+function open_meeting(choice)
+  if choice == nil then
+    return
+  end
+  local cmd = string.format('open -a "Google Chrome" "%s"', choice['url'])
+  local output, status, _, rc = hs.execute(cmd)
+  if status == nil then
+    hs.notify.new({title="Hammerspoon", informativeText='Opening Chrome failed, see log for details'})
+    log:e(string.format('Opening Chrome return code %d: %s', rc, output))
+    return
+  end
+
+end
+meetings_chooser = hs.chooser.new(open_meeting)
+meetings_chooser:choices(meeting_choices)
+hs.hotkey.bind(hyper, '=', function()
+  meetings_chooser:show()
+end)
 
 -- Screen Management
 hs.window.animationDuration = 0 
