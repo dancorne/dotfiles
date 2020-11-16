@@ -170,7 +170,7 @@ function! s:projects_sink(lines)
 endfunction
 
 function! ProjectileProject()
-  let projects = 'find ~/code/infrastructure-modules/*/* ~/code/*/modules/* ~/code/infrastructure-live/* -maxdepth 0 -type d'
+  let projects = 'find ~/code ~/code/infrastructure-modules/* ~/code/*/modules ~/code/infrastructure-live -maxdepth 1 -mindepth 1 -type d -not -name .git'
   return fzf#run(fzf#wrap('projects', {'source': projects, 'sink*': function('s:projects_sink')}))
   "return fzf#run('files', {'source': projects, 'sink*': 'cd'})
 endfunction 
