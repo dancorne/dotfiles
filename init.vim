@@ -178,7 +178,7 @@ nnoremap <Leader>p :call ProjectileProject()<CR>
 
 
 function! EnteringBuffer()
-    if matchstr(expand('%:p'), 'term://')
+    if !filereadable(expand('%:p'))
 	return
     endif
     exe 'cd  %:p:h'
