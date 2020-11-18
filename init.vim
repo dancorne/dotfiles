@@ -4,18 +4,13 @@ call plug#begin('~/.config/nvim/plugged')
 "Vim+tmux navigation
 Plug 'christoomey/vim-tmux-navigator'
 "Syntax highlighting
-Plug 'chase/vim-ansible-yaml'
 Plug 'hashivim/vim-terraform'
 "Git tools
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 "Themes
-Plug 'altercation/vim-colors-solarized'
-Plug 'jpo/vim-railscasts-theme'
-Plug 'KKPMW/moonshine-vim'
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
-Plug 'AlessandroYorba/Despacio'
 ":SQLUFormatter to format SQL
 Plug 'vim-scripts/SQLUtilities'
 Plug 'vim-scripts/Align'
@@ -29,16 +24,13 @@ Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Browse history with :UndotreeToggle
-Plug 'mbbill/undotree'
 "ysaW etc. for surrounding
 Plug 'tpope/vim-surround'
 "Task and wiki
-Plug 'freitass/todo.txt-vim'
 Plug 'alok/notational-fzf-vim'
 "Live previews of patterns and substitutions
 Plug 'markonm/traces.vim'
 "Integration with ipython
-Plug 'ivanov/vim-ipython'
 "LSP plugins for completion and syntax checking
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 "
