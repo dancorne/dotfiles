@@ -34,7 +34,7 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 # Environment variables
 HISTSIZE=500000
 HISTFILESIZE=5000000
-EDITOR=vim
+EDITOR=nvim
 TERM=screen-256color
 ANSIBLE_NOCOWS=1
 

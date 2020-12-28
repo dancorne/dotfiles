@@ -14,3 +14,7 @@ alias passwords="tr -cd '[:alnum:]' < /dev/urandom | fold -w20 | head -n3"
 alias vim="nvim"
 
 alias diff='diff -W $(( $(tput cols) - 2 ))'
+
+# This assumes we've got dotfiles cloned as a bare repo to $HOME/.dotfiles
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
