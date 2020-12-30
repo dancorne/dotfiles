@@ -66,6 +66,7 @@ c.url.searchengines = {
     "!github": "https://github.com/search?q={}&type=Repositories&l=&l=",
     "!hn": "https://hn.algolia.com/?q={}",
     "!r": "https://www.reddit.com/search?q={}",
+    "!wa": "https://www.wolframalpha.com/input/?i={}",
 }
 
 # Page(s) to open at the start.
