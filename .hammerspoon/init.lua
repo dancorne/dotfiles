@@ -4,6 +4,7 @@ local hyper = {'cmd', 'ctrl', 'shift'}
 local althyper = {'cmd', 'alt', 'ctrl', 'shift'}
 local log = hs.logger.new('main')
 hs.logger.setGlobalLogLevel('info')
+local default_browser = "/Users/dancorne/bin/qutebrowser"
 
 -- Hammerspoon Smart Reload
 function reloadConfig(files)
@@ -22,6 +23,18 @@ hs.hotkey.bind(hyper, 'r', function()
 end)
 myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 hs.notify.new({title="Hammerspoon", informativeText="Config reloaded"}):send()
+
+-- URL handler
+function url_handler(scheme, host, params, fullURL)
+  local browser = default_browser
+  local args = {fullURL}
+  if host == "meet.google.com" then
+    browser = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  end
+  log:i(string.format("Opening browser with arguments: %s", hs.inspect(args)))
+  local new_browser = hs.task.new(browser, nil, args):start()
+end
+hs.urlevent.httpCallback = url_handler
 
 -- Spoons
 -- Spoons: ClipboardTool

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+(/Users/dancorne/code/qutebrowser/.venv/bin/python -m qutebrowser $@ &)
