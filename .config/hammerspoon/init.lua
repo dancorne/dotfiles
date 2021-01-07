@@ -1,3 +1,6 @@
+-- To use ~/.config/hammerspoon instead of ~/.hammerspoon, run
+-- defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"
+--
 -- Useful command: hs.inspect(hs.keycodes.map)
 -- Hyper key defined in Karabiner-Elements (capslock when held)
 local hyper = {'cmd', 'ctrl', 'shift'}
@@ -21,7 +24,7 @@ end
 hs.hotkey.bind(hyper, 'r', function()
   hs.reload()
 end)
-myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
+myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.config/hammerspoon/", reloadConfig):start()
 hs.notify.new({title="Hammerspoon", informativeText="Config reloaded"}):send()
 
 -- URL handler
