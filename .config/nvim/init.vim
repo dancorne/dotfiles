@@ -182,6 +182,10 @@ function! EnteringBuffer()
     let top_level = system("git rev-parse --show-toplevel")
     if v:shell_error == 0
 	exe 'cd' top_level
+    elseif v:shell_error == 128
+	if expand('%:p:h') == expand('~') || match(expand('%:p:h'), expand('~/.config')) == 0
+	    let g:gitgutter_git_args = '--git-dir=$HOME/.dotfiles/ --work-tree=$HOME' 
+	endif
     elseif v:shell_error != 128
         echom v:shell_error
     endif
