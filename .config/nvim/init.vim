@@ -175,7 +175,7 @@ nnoremap <Leader>p :call ProjectileProject()<CR>
 
 
 function! EnteringBuffer()
-    if !filereadable(expand('%:p'))
+    if filewritable(expand('%:p:h')) != 2
 	return
     endif
     exe 'cd  %:p:h'
