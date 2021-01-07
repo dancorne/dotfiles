@@ -1,5 +1,6 @@
 
-# User dependent .bashrc file
+# Start up Starship
+source .starship.sh
 
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
