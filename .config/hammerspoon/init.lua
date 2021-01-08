@@ -81,12 +81,25 @@ function spotify_status()
   end
 end
 
+function uptime_status(exitCode, stdOut, stdErr)
+  if exitCode == 0 then
+    local output = stdOut:gsub(".*up%s+([^,]+),.*", "Uptime: %1")
+    uptime_menu:setTitle(output)
+  else
+    log:e("Running uptime failed with return code %s", exitCode)
+    log:e("Stderr: %s", stdErr)
+    log:e("Stdout: %s", StdOut)
+  end
+end
+
 -- Status Bar: General
 function update_menuinfo()
   spotify_status()
+  local cmd = hs.task.new("/usr/bin/uptime", uptime_status):start()
 end
 
 spotify_menu = hs.menubar.new()
+uptime_menu = hs.menubar.new()
 menubar_timer = hs.timer.new(10, update_menuinfo, true):start()
 update_menuinfo()
 
