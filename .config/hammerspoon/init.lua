@@ -146,7 +146,7 @@ function open_meeting(choice)
   if choice == nil then
     return
   end
-  local cmd = string.format('open -a "Google Chrome" "%s"', choice['url'])
+  local cmd = string.format('open "%s"', choice['url'])
   local output, status, _, rc = hs.execute(cmd)
   if status == nil then
     hs.notify.new({title="Hammerspoon", informativeText='Opening Chrome failed, see log for details'})
