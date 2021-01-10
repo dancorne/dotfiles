@@ -92,6 +92,7 @@ config.set("content.register_protocol_handler", False)
 # Default to javascript off, and add `gj` keybinding to allow it per-domain
 config.set("content.javascript.enabled", False)
 config.bind("gj", "set --pattern *.{url:host} content.javascript.enabled yes")
+config.bind("gJ", "set --pattern *.{url:host} content.javascript.enabled no")
 
 # Keybindings to send URL places
 config.bind("sw", "spawn --userscript ~/bin/send_to_wallabag.py")
