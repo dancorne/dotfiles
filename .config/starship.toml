@@ -1,5 +1,5 @@
 
-format = "$cmd_duration$directory$git_branch$git_commit$git_state$character"
+format = "$cmd_duration$hostname$directory$git_branch$git_commit$git_state$character"
 
 [git_branch]
 symbol = ""
@@ -7,3 +7,6 @@ symbol = ""
 [cmd_duration]
 format = "took [$duration]($style)\n"
 min_time = 0
+
+[hostname]
+format = "[$hostname]($style):"
