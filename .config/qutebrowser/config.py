@@ -91,8 +91,8 @@ config.set("content.register_protocol_handler", False)
 
 # Default to javascript off, and add `gj` keybinding to allow it per-domain
 config.set("content.javascript.enabled", False)
-config.bind("gj", "set --pattern *.{url:host} content.javascript.enabled yes")
-config.bind("gJ", "set --pattern *.{url:host} content.javascript.enabled no")
+config.bind("gj", "set --pattern *.{url:host} content.javascript.enabled yes ;; set --pattern *.{url:host} content.javascript.can_access_clipboard yes")
+config.bind("gJ", "set --pattern *.{url:host} content.javascript.enabled no ;; set --pattern *.{url:host} content.javascript.can_access_clipboard no")
 
 # Keybindings to send URL places
 config.bind("sw", "spawn --userscript ~/bin/send_to_wallabag.py")
