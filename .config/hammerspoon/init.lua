@@ -34,7 +34,12 @@ function url_handler(scheme, host, params, fullURL)
   if host == "meet.google.com" then
     browser = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
   end
-  log:i(string.format("Opening browser with arguments: %s", hs.inspect(args)))
+  if host == "zoom.us" then
+    browser = "/usr/bin/open"
+    local new_url, _ = fullURL:gsub("https://zoom.us", "zoommtg://hp.zoom.us"):gsub("/j/(%d+)%?", "/join?action=join&confno=%1&")
+    args = {new_url}
+  end
+  log:i(string.format("Opening %s with arguments: %s", browser, hs.inspect(args)))
   local new_browser = hs.task.new(browser, nil, args):start()
 end
 hs.urlevent.httpCallback = url_handler
