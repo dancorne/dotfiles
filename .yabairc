@@ -29,5 +29,7 @@ yabai -m config window_gap                   06
 # program-specific rules
 yabai -m rule --add app="Google Chrome" display="^2"
 yabai -m rule --add app="Google Chrome" native-fullscreen=on
+yabai -m rule --add app="zoom.us" display="^2"
+yabai -m rule --add app="zoom.us" native-fullscreen=on
 
 echo "yabai configuration loaded.."
