@@ -39,6 +39,11 @@ function url_handler(scheme, host, params, fullURL)
     local new_url, _ = fullURL:gsub("https://zoom.us", "zoommtg://hp.zoom.us"):gsub("/j/(%d+)%?", "/join?action=join&confno=%1&")
     args = {new_url}
   end
+  if host == "open.spotify.com" then
+    local new_url, _ = fullURL:gsub("https://open.spotify.com/(%w+)/(%w+)%??.*", "spotify:%1:%2")
+    browser = "/usr/bin/open"
+    args = {new_url}
+  end
   log:i(string.format("Opening %s with arguments: %s", browser, hs.inspect(args)))
   local new_browser = hs.task.new(browser, nil, args):start()
 end
