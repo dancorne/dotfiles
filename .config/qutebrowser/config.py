@@ -68,7 +68,7 @@ c.url.searchengines = {
     "!r": "https://www.reddit.com/search?q={}",
     "!wa": "https://www.wolframalpha.com/input/?i={}",
     "!rt": "https://www.rottentomatoes.com/search?search={}",
-    "!kobo": "https://www.kobo.com/gb/en/search?query={}",
+    "!kobo": "https://www.kobo.com/gb/en/search?fcmedia=Book&query={}",
 }
 
 # Page(s) to open at the start.
