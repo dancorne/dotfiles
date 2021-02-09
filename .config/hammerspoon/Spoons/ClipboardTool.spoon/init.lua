@@ -209,8 +209,7 @@ end
 ---  * None
 function obj:pasteboardToClipboard(item_type, item)
    table.insert(clipboard_history, 1, {type=item_type, content=item})
-   --clipboard_history = self:dedupe_and_resize(clipboard_history)
-   clipboard_history = clipboard_history
+   clipboard_history = self:dedupe_and_resize(clipboard_history)
    _persistHistory() -- updates the saved history
 end
 
@@ -404,8 +403,7 @@ end
 --- Start the clipboard history collector
 function obj:start()
    obj.logger.level = 0
-   --clipboard_history = self:dedupe_and_resize(getSetting("items", {})) -- If no history is saved on the system, create an empty history
-   clipboard_history = getSetting("items", {}) -- If no history is saved on the system, create an empty history
+   clipboard_history = self:dedupe_and_resize(getSetting("items", {})) -- If no history is saved on the system, create an empty history
    last_change = pasteboard.changeCount() -- keeps track of how many times the pasteboard owner has changed // Indicates a new copy has been made
    self.selectorobj = hs.chooser.new(hs.fnutils.partial(self._processSelectedItem, self))
    self.selectorobj:choices(hs.fnutils.partial(self._populateChooser, self))
