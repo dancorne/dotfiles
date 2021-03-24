@@ -64,6 +64,7 @@ c.url.searchengines = {
     "!w": "https://en.wikipedia.org/wiki/Special:Search?search={}",
     "!qw": "https://www.qwant.com/?q={}",
     "!github": "https://github.com/search?q={}&type=Repositories&l=&l=",
+    "!tf": "https://registry.terraform.io/search/modules?q={}",
     "!hn": "https://hn.algolia.com/?q={}",
     "!r": "https://www.reddit.com/search?q={}",
     "!wa": "https://www.wolframalpha.com/input/?i={}",
