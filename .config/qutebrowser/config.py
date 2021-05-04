@@ -83,9 +83,9 @@ config.set("content.autoplay", False)
 config.set("content.geolocation", False)
 
 # Shut up please
-config.set("content.notifications", False)
+config.set("content.notifications.enabled", False)
 # Except you, Telegram
-config.set("content.notifications", True, "https://web.telegram.org")
+config.set("content.notifications.enabled", True, "https://web.telegram.org")
 
 # Stop asking me to handle my emails, GMail
 config.set("content.register_protocol_handler", False)
