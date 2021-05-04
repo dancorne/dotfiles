@@ -70,6 +70,7 @@ c.url.searchengines = {
     "!wa": "https://www.wolframalpha.com/input/?i={}",
     "!rt": "https://www.rottentomatoes.com/search?search={}",
     "!kobo": "https://www.kobo.com/gb/en/search?fcmedia=Book&query={}",
+    "!youtube": "https://www.youtube.com/results?search_query={}",
 }
 
 # Page(s) to open at the start.
