@@ -100,9 +100,13 @@ def main():
                 print(f"Uploaded {title} to {target.VissibleName}")
         else:
             rm_doc = [f for f in collection if f.VissibleName == title][0]
+            try:
+                rm_mod_time = datetime.strptime(rm_doc.ModifiedClient, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+            except ValueError:
+                rm_mod_time = datetime.strptime(rm_doc.ModifiedClient, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
             if rm_doc.Parent == target.ID:
                 continue
-            elif w_modifiedtime >= datetime.strptime(rm_doc.ModifiedClient, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc):
+            elif w_modifiedtime >= rm_mod_time:
                 print(f"{title} in wrong folder and more recent in Wallabag, moving to {target.VissibleName}...")
                 rm_doc.Parent = target.ID
                 rm_doc.ModifiedClient = w_modifiedtime.astimezone(tz=timezone.utc).strftime(RFC3339Nano)
