@@ -3,6 +3,7 @@ import os
 import requests
 import tempfile
 from datetime import datetime, timezone
+
 # Need to install rmapy, probably doesn't matter what version
 # Also need to have logged in with a CLI client (rmapy or rmapi)
 from rmapy.api import Client
@@ -90,7 +91,7 @@ def main():
         else:
             target = archive
         if title not in titles:
-            with tempfile.NamedTemporaryFile() as f:
+            with tempfile.NamedTemporaryFile(suffix=".epub") as f:
                 wallabag.export(w["id"], f.file)
                 rawDocument = ZipDocument(doc=f.name)
                 rawDocument.metadata["VissibleName"] = title
