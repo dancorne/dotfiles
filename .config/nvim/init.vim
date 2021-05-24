@@ -296,3 +296,4 @@ set foldlevelstart=99
 command! Terragrunt vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??' -- terragrunt plan
 command! TerragruntApply vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??' -- terragrunt apply
 command! -range TFLocalModules <line1>,<line2>s^\vsource.*/([a-zA-Z1-9_-]+)\.git//([a-zA-Z1-9/-]+)\?ref=.*^source = "/Users/dancorne/code/\1//\2"^e | norm!``
+command! -range -nargs=1 TFModuleVersion <line1>,<line2>s^\v(source.*)\?ref=.*^\1?ref=v<args>"^e | norm!``
