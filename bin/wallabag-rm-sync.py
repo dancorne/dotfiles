@@ -77,10 +77,10 @@ def main():
     rmapy = Remarkable()
     rmapy.renew_token()
     collection = rmapy.get_meta_items()
-    titles = set(f.VissibleName for f in collection)
     unread = [f for f in collection if isinstance(f, Folder) and f.VissibleName == UNREAD_FOLDER][0]
     favourites = [f for f in collection if isinstance(f, Folder) and f.VissibleName == FAVOURITES_FOLDER][0]
     archive = [f for f in collection if isinstance(f, Folder) and f.VissibleName == ARCHIVE_FOLDER][0]
+    titles = set(f.VissibleName for f in collection if f.Parent in [unread.ID, archive.ID, favourites.ID])
     for w in wallabag.getEntries()[:50]:
         title = f"{w['title']} - {w['id']}"
         w_modifiedtime = datetime.strptime(w["updated_at"], "%Y-%m-%dT%H:%M:%S%z")
