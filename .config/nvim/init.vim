@@ -160,10 +160,6 @@ function! s:projects_sink(lines)
   let dir = a:lines[0]
   call fzf#vim#files(dir, {})
   startinsert
-  " https://github.com/junegunn/fzf/issues/426
-  if has("nvim")
-    call feedkeys('i')
-  endif
 endfunction
 
 function! ProjectileProject()
