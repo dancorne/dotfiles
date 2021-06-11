@@ -176,6 +176,9 @@ function! EnteringBuffer()
     if filewritable(expand('%:p:h')) != 2
 	return
     endif
+    if &filetype == 'fugitive'
+	return
+    endif
     exe 'cd  %:p:h'
     let top_level = system("git rev-parse --show-toplevel")
     if v:shell_error == 0
