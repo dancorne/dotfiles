@@ -64,3 +64,19 @@ require'compe'.setup {
     nvim_lsp = true;
   };
 }
+
+function open_browser_git()
+    local git_remote = vim.fn.FugitiveRemoteUrl()
+    local rel_path = vim.fn.FugitiveVimPath(vim.fn.expand("%"))
+    local git_ref = vim.fn.FugitiveHead()
+    local base_address, _ = git_remote:gsub(":", "/"):gsub(".*@", "https://"):gsub("%.git", "")
+    local location_address = "/tree/" .. git_ref .. "/" .. rel_path
+    local opener
+    if vim.fn.has("mac") then
+	opener = "open "
+    else
+	opener = "xdg-open "
+    end
+    vim.fn.jobstart(opener .. base_address .. location_address)
+end
+vim.cmd(":command! GitBrowser lua open_browser_git()")
