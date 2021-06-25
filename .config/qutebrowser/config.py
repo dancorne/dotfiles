@@ -87,6 +87,8 @@ config.set("content.geolocation", False)
 config.set("content.notifications.enabled", False)
 # Except you, Telegram
 config.set("content.notifications.enabled", True, "https://web.telegram.org")
+# And you, Element
+config.set("content.notifications.enabled", True, "https://app.element.io")
 
 # Stop asking me to handle my emails, GMail
 config.set("content.register_protocol_handler", False)
