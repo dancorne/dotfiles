@@ -242,7 +242,7 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 globalkeys = gears.table.join(
 -- Custom keys here
-    awful.key({ modkey },            "r",     function () awful.util.spawn("rofi -show combi -combi-modi 'ssh,run' -ssh-command '{terminal} -e \"{ssh-client} {host}\"' ") end),
+    --awful.key({ modkey },            "r",     function () awful.util.spawn("rofi -show combi -combi-modi 'ssh,run' -ssh-command '{terminal} -e \"{ssh-client} {host}\"' ") end),
     awful.key({}, "Print", function () awful.util.spawn("gnome-screenshot -a") end),
     awful.key({ }, "XF86MonBrightnessDown", function ()
         awful.util.spawn("brightnessctl set 15%-") end),
