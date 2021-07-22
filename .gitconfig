@@ -5,7 +5,7 @@
 [alias]
     log1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
     loga = log --all --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
-    wip = for-each-ref --sort='authordate:iso8601' --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))' refs/heads
+    wip = !git checkout $(git for-each-ref --sort='-authordate:iso8601' --format='%(HEAD) %(refname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))' refs/heads | fzf --height 20% | awk '{print $1}')
     fix = !git commit --fixup $(git log --oneline -20 --pretty='%h %s' | fzf --reverse --height 20% | awk '{print $1}')
 
 [pull]
