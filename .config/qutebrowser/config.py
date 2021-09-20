@@ -103,3 +103,5 @@ config.bind("sw", "spawn --userscript ~/bin/send_to_wallabag.py")
 config.bind("Sw", "hint --rapid links userscript ~/bin/send_to_wallabag.py")
 config.bind(",m", "spawn mpv --force-window=immediate {url}")
 config.bind(",M", "hint links spawn mpv --force-window=immediate {hint-url}")
+
+config.bind(",p", "spawn --userscript ~/code/qutebrowser/misc/userscripts/password_fill")
