@@ -18,6 +18,7 @@ Plug 'hashivim/vim-terraform'
 "Git tools
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 "Themes
 Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
