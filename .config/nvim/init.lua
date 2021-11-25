@@ -65,18 +65,20 @@ require'compe'.setup {
   };
 }
 
+-- Decide how to open, depending on platform. Doubt I'll need Windows but easily added.
+if vim.fn.has("mac") then
+    opener = "open "
+else
+    opener = "xdg-open "
+end
 function open_browser_git()
-    local git_remote = vim.fn.FugitiveRemoteUrl()
-    local rel_path = vim.fn.FugitiveVimPath(vim.fn.expand("%"))
-    local git_ref = vim.fn.FugitiveHead()
-    local base_address, _ = git_remote:gsub(":", "/"):gsub(".*@", "https://"):gsub("%.git", "")
-    local location_address = "/tree/" .. git_ref .. "/" .. rel_path
-    local opener
-    if vim.fn.has("mac") then
-	opener = "open "
-    else
-	opener = "xdg-open "
-    end
+    -- Get the remote URL, then:
+    -- 1. Replace any instances of : with / (we assume there's only one in a git URL)
+    -- 2. Replace everything up to the username@ part with https://
+    -- 3. Remove any possible ending of .git
+    local base_address, _ = vim.fn.FugitiveRemoteUrl():gsub(":", "/"):gsub(".*@", "https://"):gsub("%.git$", "")
+    -- For location within repo, we add the current branch and relative path.
+    local location_address, _ = "/tree/" .. vim.fn.FugitiveHead() .. "/" .. vim.fn.FugitiveVimPath(vim.fn.expand("%"))
     vim.fn.jobstart(opener .. base_address .. location_address)
 end
 vim.cmd(":command! GitBrowser lua open_browser_git()")
