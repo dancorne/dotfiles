@@ -15,4 +15,5 @@ aliases:
       | bat --language terraform
     pr-num: '!gh pr view | grep ''^url:'' | sed ''s/url:.*\///'''
     atlantis-plan: '!gh pr comment --body "atlantis plan"'
-    run-plan: '!gh pr comment --body "run plan"'
+    run-plan: '!gh pr comment $1 --body "run plan"'
+    run-plan-all: '!gh pr comment $1 --body "run plan -- all"'
