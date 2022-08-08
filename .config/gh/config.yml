@@ -12,6 +12,7 @@ aliases:
     show-plan: >
       !gh pr view $1 --comments --json 'comments'
       | jq --raw-output '.comments[] | select(.author.login | contains("atlantis-freeagent")) | select(.isMinimized == false) | [.body] | @tsv' | /usr/bin/sed -e 's/```diff\(.*\)```.*$/\1/'  -e 's/\\n/\'$'\n''/g'
+      | bat --language terraform
     pr-num: '!gh pr view | grep ''^url:'' | sed ''s/url:.*\///'''
     atlantis-plan: '!gh pr comment --body "atlantis plan"'
     run-plan: '!gh pr comment --body "run plan"'
