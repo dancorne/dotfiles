@@ -69,7 +69,7 @@ set -o vi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Complete SSH hosts
-complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
+#complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
 
 #Pass through for Ctrl-S to work in vim
 stty -ixon
