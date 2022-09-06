@@ -1,5 +1,6 @@
 
-format = "$cmd_duration$hostname$directory$git_branch$git_commit$git_state$character"
+format = "$cmd_duration$hostname$directory$git_branch$git_commit$git_state$git_status$character"
+#command_timeout = 5000
 
 [git_branch]
 symbol = ""
