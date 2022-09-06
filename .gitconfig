@@ -13,6 +13,20 @@
     chardiff = diff --color-words=.
 
 [pull]
-	ff = only
+    ff = only
+    rebase = true
+[rebase]
+    autostash = true
+    autosquash = true
 [commit]
     verbose = true
+
+[merge]
+    conflictStyle = diff3
+    tool = nvim
+# define command which will be used when "nvim" is set as a merge tool
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+# set "nvim" as tool for merging
+[mergetool]
+    prompt = false
