@@ -57,13 +57,14 @@ TERM=screen-256color
 ANSIBLE_NOCOWS=1
 BASH_SILENCE_DEPRECATION_WARNING=1
 RIPGREP_CONFIG_PATH=~/.config/ripgreprc
+#FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow'
+FZF_DEFAULT_COMMAND='fd --follow --hidden --exclude .git --color=always'
+FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+FZF_DEFAULT_OPTS="--ansi"
 
-export TERM EDITOR HISTSIZE HISTFILESIZE ANSIBLE_NOCOWS
+export TERM EDITOR HISTSIZE HISTFILESIZE ANSIBLE_NOCOWS RIPGREP_CONFIG_PATH BASH_SILENCE_DEPRECATION_WARNING FZF_DEFAULT_COMMAND FZF_CTRL_T_COMMAND FZF_DEFAULT_OPTS
 
 set -o vi
-
-# Search
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
