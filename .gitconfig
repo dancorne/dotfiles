@@ -3,10 +3,14 @@
 	email = danielcorne@gmail.com
 
 [alias]
+    co = checkout
     log1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
     loga = log --all --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+    ls = !cd ${GIT_PREFIX} && git ls-files $(git rev-parse --show-toplevel)
+    pwd = !echo ${GIT_PREFIX}
     wip = !git checkout $(git for-each-ref --sort='-authordate:iso8601' --format='%(HEAD) %(refname:short) - %(contents:subject) - %(authorname) (%(committerdate:relative))' refs/heads | fzf --height 20% | awk '{print $1}')
     fix = !git commit --fixup $(git log --oneline -20 --pretty='%h %s' | fzf --reverse --height 20% | awk '{print $1}')
+    chardiff = diff --color-words=.
 
 [pull]
 	ff = only
