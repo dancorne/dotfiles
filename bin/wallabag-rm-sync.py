@@ -57,7 +57,6 @@ class Wallabag(requests.Session):
             data["archive"] = int(archive)
         if starred is not None:
             data["starred"] = int(starred)
-        print(data)
         res = self.patch(f"{WALLABAG_BASE_URL}/api/entries/{article['id']}.json", json=data)
         res.raise_for_status()
 
@@ -81,7 +80,7 @@ def main():
     favourites = [f for f in collection if isinstance(f, Folder) and f.VissibleName == FAVOURITES_FOLDER][0]
     archive = [f for f in collection if isinstance(f, Folder) and f.VissibleName == ARCHIVE_FOLDER][0]
     titles = set(f.VissibleName for f in collection if f.Parent in [unread.ID, archive.ID, favourites.ID])
-    for w in wallabag.getEntries()[:50]:
+    for w in wallabag.getEntries()[:200]:
         title = f"{w['title']} - {w['id']}"
         w_modifiedtime = datetime.strptime(w["updated_at"], "%Y-%m-%dT%H:%M:%S%z")
         if w["is_archived"] == 0:
@@ -92,7 +91,11 @@ def main():
             target = archive
         if title not in titles:
             with tempfile.NamedTemporaryFile(suffix=".epub") as f:
-                wallabag.export(w["id"], f.file)
+                try:
+                    wallabag.export(w["id"], f.file)
+                except requests.exceptions.HTTPError as e:
+                    print(f"Skipped export of {title} due to error {e.response.status_code}")
+                    continue
                 rawDocument = ZipDocument(doc=f.name)
                 rawDocument.metadata["VissibleName"] = title
                 rawDocument.metadata["ModifiedClient"] = w_modifiedtime.astimezone(tz=timezone.utc).strftime(RFC3339Nano)
@@ -113,7 +116,7 @@ def main():
                 rmapy.update_metadata(rm_doc)
             else:
                 # Wrong message, should be parents "vissiblename"
-                print(f"{title} moved to {target.VissibleName}, updating Wallabag...")
+                print(f"{title} moved to {[folder for folder in [unread, favourites, archive] if folder.ID == rm_doc.Parent][0].VissibleName}, updating Wallabag...")
                 if rm_doc.Parent == archive.ID:
                     wallabag.updateEntry(w, archive=True, starred=False)
                 elif rm_doc.Parent == favourites.ID:
