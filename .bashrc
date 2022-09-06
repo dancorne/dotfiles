@@ -25,6 +25,22 @@ export WORKON_HOME=$PROJECT_HOME/.venv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 [[ -f  $HOME/.local/bin/virtualenvwrapper_lazy.sh ]] && . $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
+# AWS
+export AWS_VAULT_KEYCHAIN_NAME=login
+complete -C /usr/local/bin/aws_completer aws aws-vault
+_aws-vault_bash_autocomplete() {
+    local cur prev opts base
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    opts=$( ${COMP_WORDS[0]} --completion-bash "${COMP_WORDS[@]:1:$COMP_CWORD}" )
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+}
+complete -F _aws-vault_bash_autocomplete -o default aws-vault
+
+export AWS_VAULT_PROMPT=osascript
+export AWS_SDK_LOAD_CONFIG=1
+
 # Aliases
 #
 # Some people use a different file for aliases
