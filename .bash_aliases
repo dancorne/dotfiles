@@ -37,3 +37,14 @@ _assume_role() {
         )
     )
 }
+
+# Get all resource types in a directory and search recent AWS provider release notes for changes
+_tf_check_release_notes() {
+    REGEX="$(rg -INr '$1' '^resource "?(\w+)"? .*' | sort -u | tr '\n' '|')";
+    for release in $(gh release list -R hashicorp/terraform-provider-aws | awk '{print $1}'); do
+	if gh release view -R hashicorp/terraform-provider-aws $release | rg "resource/(${REGEX%?}):"; then
+	    echo $release;
+	fi;
+    done
+}
+
