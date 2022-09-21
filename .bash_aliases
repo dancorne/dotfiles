@@ -24,3 +24,6 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 _test_jq() {
     echo '' | fzf --print-query --preview "cat $* | jq {q}"
 }
+
+alias _clean_terragrunt="find . -type d -name .terragrunt-cache -prune -exec rm -fr {} \+ -o -name .terraform.lock.hcl -delete"
+
