@@ -27,3 +27,13 @@ _test_jq() {
 
 alias _clean_terragrunt="find . -type d -name .terragrunt-cache -prune -exec rm -fr {} \+ -o -name .terraform.lock.hcl -delete"
 
+_assume_role() {
+    export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" \
+        $(aws-vault exec "${2:-dan}" -- aws sts assume-role \
+            --role-arn "$1" \
+            --role-session-name MySessionName \
+            --query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" \
+            --output text
+        )
+    )
+}
