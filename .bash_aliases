@@ -21,3 +21,6 @@ alias fd='fd -H'
 # This assumes we've got dotfiles cloned as a bare repo to $HOME/.dotfiles
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+_test_jq() {
+    echo '' | fzf --print-query --preview "cat $* | jq {q}"
+}
