@@ -48,3 +48,11 @@ _tf_check_release_notes() {
     done
 }
 
+_terragrunt_use_local_modules() {
+    gsed -ri 's^source.*\.git//([a-zA-Z/-]+)\?ref=.*^source = "/Users/dancorne/code/infrastructure-modules//\1"^' $(fd terragrunt.hcl)
+}
+
+_terragrunt_change_version() {
+    gsed -ri 's^git::git@github.com:'$1'.git//modules/([a-zA-Z/-]+)\?ref=.*^git::git@github.com:'$1'.git//modules/\1?ref='$2'"^' $(fd terragrunt.hcl)
+}
+
