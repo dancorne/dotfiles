@@ -1,73 +1,34 @@
 
-"PLUGINS
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-call plug#begin('~/.config/nvim/plugged')
-if has('nvim')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'hrsh7th/nvim-compe'
-endif
-"Vim+tmux navigation
-Plug 'christoomey/vim-tmux-navigator'
-"Syntax highlighting
-Plug 'hashivim/vim-terraform'
-"Git tools
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-"Themes
-Plug 'morhetz/gruvbox'
-Plug 'lifepillar/vim-gruvbox8'
-":SQLUFormatter to format SQL
-Plug 'vim-scripts/SQLUtilities'
-Plug 'vim-scripts/Align'
-":DirDiff for directory diffing
-Plug 'will133/vim-dirdiff'
-"Browsing with -
-Plug 'tpope/vim-vinegar'
-"Shortcuts like ]q
-Plug 'tpope/vim-unimpaired'
-"FZF searching
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-"Browse history with :UndotreeToggle
-"ysaW etc. for surrounding
-Plug 'tpope/vim-surround'
-"Task and wiki
-Plug 'alok/notational-fzf-vim'
-"Live previews of patterns and substitutions
-Plug 'markonm/traces.vim'
-"
-Plug 'majutsushi/tagbar'
-Plug 'ludovicchabant/vim-gutentags'
-call plug#end()
-
 let g:gutentags_cache_dir = "~/.nvim/tags"
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/opt/local/bin/python3'
 
 ""BEHAVIOUR
 syntax enable
-set number
-set hidden
-set cursorline
-let mapleader = "\<Space>"
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 "Open file at same line as when closed
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 
+if has('macunix')
+  let g:netrw_browsex_viewer= "open"
+endif
+
 filetype indent plugin on
 set backspace=indent,eol,start
 set modeline
-set tabstop=8
-set shiftwidth=4
-set softtabstop=4
+set tabstop=4
+set shiftwidth=2
+set expandtab
+"set softtabstop=4
 set splitright
+nnoremap n nzz
+nnoremap N Nzz
 
 set mouse=r
+
+tnoremap <Esc> <C-\><C-n>
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 set undofile
 set undodir=~/.vim/undodir
@@ -77,6 +38,8 @@ set backupdir=~/.vim/backup
 ""TOOLS
 "Format JSON
 command! -range -nargs=0 -bar JsonTool <line1>,<line2>!python -m json.tool
+
+command Bd bp\|bd \#
 
 "in case sudo is forgotten
 cmap w!! %!sudo tee > /dev/null %
@@ -101,10 +64,10 @@ let g:netrw_preview = 1
 let g:netrw_winsize = 15
 
 ""GIT
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>ga :Gwrite<CR>
-nnoremap <Leader>gc :Gcommit -v -q <CR>
-nnoremap <Leader>gd :Gitdiff<CR>
+nnoremap <Leader>gc :Git commit -v -q<CR>
+nnoremap <Leader>gd :Gitdiffsplit<CR>
 nnoremap <Leader>go :Git checkout <Space>
 nnoremap <Leader>gb :Git branch <Space>
 nnoremap <Leader>gg :Ggrep <Space>
@@ -166,7 +129,7 @@ function! s:projects_sink(lines)
 endfunction
 
 function! ProjectileProject()
-  let projects = 'find ~/code ~/code/infrastructure-modules/* ~/code/*/modules ~/code/infrastructure-live -maxdepth 1 -mindepth 1 -type d -not -name .git'
+  let projects = 'find ~/code ~/code/infrastructure-modules/* ~/code/*/modules ~/code/infrastructure-live -maxdepth 1 -mindepth 1 -type d -not -name .git -not -name .github'
   return fzf#run(fzf#wrap('projects', {'source': projects, 'sink*': function('s:projects_sink')}))
   "return fzf#run('files', {'source': projects, 'sink*': 'cd'})
 endfunction 
@@ -196,28 +159,24 @@ autocmd BufEnter * call EnteringBuffer()
 "set autochdir
 
 ""THEME
-syntax on
-set t_Co=256 "256 colours
-set background=dark
-set termguicolors
-colorscheme gruvbox8
 " Set for transparent terminals
 "highlight Normal guibg=none ctermbg=none
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,nbsp:^
 "set statusline=%F%m%r%h%w%=%y[%l,%c][%L][%{&ff}][%p%%]
 set statusline=%<%f\ %h%m%r(%{FugitiveHead()})%{tagbar#currenttag('[%s]','')}%=%y[%l,%c][%L][%{&ff}][%p%%]
-set signcolumn=yes
 
 ""NOTES
 "Diary shortcut
 nnoremap <Leader>w<Leader>w :vsplit ~/notes/diary/`date +\%Y-\%W`.md<CR>
 "Search all Markdown headings
 nnoremap <Leader>n :NV ^#<CR>
+let g:markdown_fenced_languages = ['python', 'ruby', 'vim', 'sh', 'go', 'lua']
 "TODO Shortcuts for searching todo.txt
 nnoremap <Leader>a :vimgrep "(A)" ~/notes/todo.txt<CR>
+au filetype todo setlocal omnifunc=todo#Complete
+au filetype todo imap <buffer> + +<C-X><C-O>
+au filetype todo imap <buffer> @ @<C-X><C-O>
 
 let g:nv_default_extension = '.md'
-let g:nv_search_paths = ['~/notes']
 let g:nv_keymap = {
                     \ 'ctrl-s': 'split ',
                     \ 'ctrl-v': 'vertical split ',
@@ -231,8 +190,9 @@ let g:nv_preview_width = '40%'
 let g:nv_preview_direction = 'right'
 let g:nv_use_short_pathnames = 1
 let g:nv_expect_keys = []
-
-au FileType python setlocal formatprg=black\ -l\ 120\ --quiet\ -
+"Navigate notes with `gf`
+autocmd BufRead,BufNewFile ~/notes/* setlocal path+=~/notes/**
+set suffixesadd+=.md
 
 ""LATEX
 let g:tex_flavor='latex'
@@ -241,16 +201,11 @@ let g:Tex_CompileRule_pdf = 'latexmk -pdf -pvc $*'
 set iskeyword+=:
 autocmd FileType tex setlocal makeprg=pdflatex\ --shell-escape\ '%'
 
-
-""ANSIBLE
-autocmd BufRead,BufNewFile *.yml setlocal filetype=ansible foldmethod=indent
-set foldlevelstart=99
-
-
 ""TERRAFORM TERRAGRUNT
+nnoremap <Leader>rp :call AtlantisPlan()<CR>
 "Only works when in the infrastructure-live root
-command! Terragrunt vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??' -- terragrunt plan
-command! TerragruntApply vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??' -- terragrunt apply
+command! Terragrunt vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??-ops' -- terragrunt plan
+command! TerragruntApply vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??-ops' -- terragrunt apply
 command! -range TFLocalModules <line1>,<line2>s^\vsource.*/([a-zA-Z1-9_-]+)\.git//([a-zA-Z1-9/-]+)\?ref=.*^source = "/Users/dancorne/code/\1//\2"^e | norm!``
 command! -range -nargs=1 TFModuleVersion <line1>,<line2>s^\v(source.*)\?ref=.*^\1?ref=<args>"^e | norm!``
 command! AtlantisPlan :execute "!gh pr view --web | Gpush | sleep 5 | \!gh run-plan"<CR>
