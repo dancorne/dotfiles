@@ -33,13 +33,6 @@ return {
       incremental_selection = {
         enable = true, -- false will disable the whole extension
       },
-      --}
-      --      init = function()
-      --        vim.treesitter.query.set("ruby", "folds", [[
-      --          (function_definition (block) @fold)
-      --          (method_definition (block) @fold)
-      --        ]])
-      --      end,
     },
     dependencies = {
       {
