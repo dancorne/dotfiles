@@ -19,6 +19,7 @@ vim.opt.listchars = {
   nbsp = "^",
 }
 --vim.opt.statusline=%<%f\ %h%m%r(%{FugitiveHead()})[%{nvim_treesitter#statusline()}]%=%y[%l,%c][%L][%{&ff}][%p%%]
+vim.opt.statusline = "%<%f\\ %h%m%r(%{FugitiveHead()})[%{nvim_treesitter#statusline()}]%=%y[%l,%c][%L][%{&ff}][%p%%]"
 vim.opt.signcolumn = "yes"
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
