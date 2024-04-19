@@ -7,7 +7,8 @@ local hyper = {'cmd', 'ctrl', 'shift'}
 local althyper = {'cmd', 'alt', 'ctrl', 'shift'}
 local log = hs.logger.new('main')
 hs.logger.setGlobalLogLevel('info')
-local default_browser = "/Users/dancorne/bin/qutebrowser"
+local default_browser = "open"
+local default_ruby = "/Users/dancorne/.rubies/ruby-3.3.0/bin/ruby"
 
 -- Hammerspoon Smart Reload
 function reloadConfig(files)
@@ -183,6 +184,52 @@ meetings_chooser:choices(meeting_choices)
 hs.hotkey.bind(hyper, '=', function()
   meetings_chooser:show()
 end)
+
+-- Chooser: AWS accounts
+function open_aws(choice)
+  if choice == nil then
+    return
+  end
+  local cmd = string.format(
+    'open "https://%s.awsapps.com/start/#/console?%s"',
+    choice['sso_session'],
+    choice['url_args'])
+  local output, status, _, rc = hs.execute(cmd)
+  if status == nil then
+    hs.notify.new({ title = "Hammerspoon", informativeText = 'Opening Chrome failed, see log for details' })
+    log:e(string.format('Opening Chrome return code %d: %s', rc, output))
+    return
+  end
+end
+
+function get_aws_names()
+  local cmd =
+      default_ruby ..
+      [[ -r inifile -e "puts IniFile.load('/Users/dancorne/.aws/config').to_h.select { |section, _| section.include?('profile') }.map { |section, values| \"#{section.match(/profile\s+(.*?)$/)[1]},#{'%.12d' % values['sso_account_id']},#{values['sso_role_name']},#{values['sso_session']}\" }"]]
+  local output, status, _, rc = hs.execute(cmd)
+  if status == nil then
+    log:e(string.format('Error getting AWS profiles failed with return code %d: %s', rc, output))
+    return
+  end
+  local options = {}
+  log:e(hs.inspect(output))
+  for line in output:gmatch('[^\n]+') do
+    for account_name, account_id, role_name, sso_session in line:gmatch('([^,]+),([^,]+),([^,]+),([^,]+)') do
+      table.insert(options,
+        {
+          ["text"] = account_name,
+          ["sso_session"] = sso_session,
+          ["url_args"] = string.format(
+            "&account_id=%s&role_name=%s", account_id, role_name)
+        })
+    end
+  end
+  return options
+end
+
+aws_chooser = hs.chooser.new(open_aws)
+aws_chooser:choices(get_aws_names)
+hs.hotkey.bind(hyper, '-', function() aws_chooser:show() end)
 
 -- Screen Management
 hs.window.animationDuration = 0 
