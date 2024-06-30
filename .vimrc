@@ -1,6 +1,5 @@
 
 let g:gutentags_cache_dir = "~/.nvim/tags"
-let g:python3_host_prog = '/opt/local/bin/python3'
 
 ""BEHAVIOUR
 syntax enable
