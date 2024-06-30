@@ -21,13 +21,6 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 export GOPATH=~/go
 export PATH=$PATH:$HOME/bin:$GOPATH/bin:$HOME/.local/bin
 
-
-# virtualenvs
-export PROJECT_HOME=$HOME/code
-export WORKON_HOME=$PROJECT_HOME/.venv
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-[[ -f  $HOME/.local/bin/virtualenvwrapper_lazy.sh ]] && . $HOME/.local/bin/virtualenvwrapper_lazy.sh
-
 # AWS
 export AWS_VAULT_KEYCHAIN_NAME=login
 complete -C /usr/local/bin/aws_completer aws aws-vault
