@@ -25,7 +25,7 @@ _test_jq() {
     echo '' | fzf --print-query --preview "cat $* | jq {q}"
 }
 
-alias _clean_terragrunt="find . -type d -name .terragrunt-cache -prune -exec rm -fr {} \+ -o -name .terraform.lock.hcl -delete"
+alias _clean_terragrunt="find . -type d -name .terragrunt-cache -prune -exec rm -fr {} \+ -delete"
 
 _assume_role() {
     export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" \
