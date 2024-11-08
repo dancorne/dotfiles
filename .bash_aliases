@@ -56,3 +56,7 @@ _terragrunt_change_version() {
     gsed -ri 's^git::git@github.com:'$1'.git//modules/([a-zA-Z/-]+)\?ref=.*^git::git@github.com:'$1'.git//modules/\1?ref='$2'"^' $(fd terragrunt.hcl)
 }
 
+# Pipe to this to cut output to the terminal size, useful for getting the top of tests when running with entr
+_fit_to_terminal() {
+  head -n $(tput lines) | cut -c -$(tput cols)
+}
