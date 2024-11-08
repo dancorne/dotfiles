@@ -83,7 +83,7 @@ return {
       local ensure_installed = {}
       for server_name, server_opts in pairs(servers) do
         -- Setup through mason lsp if it's available in that plugin, otherwise directly
-        if vim.tbl_contains(all_mslp_servers, server) then
+        if vim.tbl_contains(all_mslp_servers, server_name) then
           ensure_installed[#ensure_installed + 1] = server_name
         else
           require("lspconfig")[server_name].setup(server_opts)
