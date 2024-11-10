@@ -93,7 +93,6 @@ return {
       mlsp.setup_handlers {
         function(server_name)
           local server_opts = servers[server_name] or {}
-          print("Setting up " .. server_name .. " with " .. vim.inspect(server_opts))
           require("lspconfig")[server_name].setup(server_opts)
         end
       }
