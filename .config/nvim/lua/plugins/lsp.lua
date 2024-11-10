@@ -53,13 +53,11 @@ return {
         gopls = {},
         sqlls = {},
         lua_ls = {
-          opts = {
-            settings = {
-              Lua = {
-                runtime = { version = 'LuaJIT' },
-                diagnostics = { globals = { 'vim' } },
-                workspace = { library = { vim.env.VIMRUNTIME } }
-              }
+          settings = {
+            Lua = {
+              runtime = { version = 'LuaJIT' },
+              diagnostics = { globals = { 'vim' } },
+              workspace = { library = { vim.env.VIMRUNTIME } }
             }
           }
         },
