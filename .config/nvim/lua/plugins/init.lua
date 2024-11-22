@@ -8,11 +8,6 @@ return {
   "ThePrimeagen/git-worktree.nvim",
   "kyazdani42/nvim-web-devicons",
   "pwntester/octo.nvim",
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/nvim-cmp",
   "ElPiloto/telescope-vimwiki.nvim",
   "christoomey/vim-tmux-navigator",
   --Git tools
@@ -46,6 +41,24 @@ return {
   --Live previews of patterns and substitutions
   "ojroques/vim-oscyank",
   "majutsushi/tagbar",
-
   "github/copilot.vim",
+
+  --  {
+  --    "yetone/avante.nvim",
+  --    event = "VeryLazy",
+  --    lazy = false,
+  --    opts = {
+  --      provider = "copilot"
+  --    },
+  --    -- if you want to download pre-built binary, then pass source=false. Make sure to follow instruction above.
+  --    -- Also note that downloading prebuilt binary is a lot faster comparing to compiling from source.
+  --    build = ":AvanteBuild source=false",
+  --    dependencies = {
+  --      "stevearc/dressing.nvim",
+  --      "nvim-lua/plenary.nvim",
+  --      "MunifTanjim/nui.nvim",
+  --      --- The below dependencies are optional,
+  --      "zbirenbaum/copilot.lua", -- for providers='copilot'
+  --    },
+  --  }
 }

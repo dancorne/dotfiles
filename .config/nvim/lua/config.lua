@@ -37,7 +37,11 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 --autocmd BufEnter * :syntax sync fromstart
 vim.filetype.add {
   extension = {
-    tf = 'hcl'
+    tf = 'hcl',
+    tfvars = 'hcl',
+    ['tf.erb'] = 'hcl',
+    ['hcl.erb'] = 'hcl',
+    ['json.tftpl'] = 'json',
   },
   filename = {
     ['terragrunt.hcl'] = 'hcl'
