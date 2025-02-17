@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false, -- Used for statusline
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdateSync" },
@@ -33,26 +34,21 @@ return {
       incremental_selection = {
         enable = true, -- false will disable the whole extension
       },
-      --}
-      --      init = function()
-      --        vim.treesitter.query.set("ruby", "folds", [[
-      --          (function_definition (block) @fold)
-      --          (method_definition (block) @fold)
-      --        ]])
-      --      end,
-    },
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        init = function()
-          -- disable rtp plugin, as we only need its queries for mini.ai
-          -- In case other textobject modules are enabled, we will load them
-          -- once nvim-treesitter is loaded
-          require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
-          load_textobjects = true
-        end,
+      textobjects = {
+        move = {
+          enable = true,
+          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+        },
       },
     },
+    init = function()
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.opt.foldenable = false
+    end,
   },
   {
     "nvim-treesitter/playground",

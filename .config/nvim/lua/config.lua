@@ -1,15 +1,19 @@
+vim.g.mapleader = " "
+vim.opt.inccommand = "nosplit"
 vim.opt.number = true
 vim.opt.hidden = true
 vim.opt.cursorline = true
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = false
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.wildmenu = true
+vim.opt.wildmode = { 'longest', 'list', 'full' }
+vim.opt.splitright = true
+vim.opt.mouse = 'r'
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
 
-vim.cmd.colorscheme("gruvbox8")
---set syntax
---vim.opt.t_Co=256 --256 colours
-vim.opt.background = "dark"
-vim.opt.termguicolors = true
 vim.opt.listchars = {
   eol = "$",
   tab = ">-",
@@ -18,23 +22,49 @@ vim.opt.listchars = {
   precedes = "<",
   nbsp = "^",
 }
---vim.opt.statusline=%<%f\ %h%m%r(%{FugitiveHead()})[%{nvim_treesitter#statusline()}]%=%y[%l,%c][%L][%{&ff}][%p%%]
-vim.opt.statusline = "%<%f\\ %h%m%r(%{FugitiveHead()})[%{nvim_treesitter#statusline()}]%=%y[%l,%c][%L][%{&ff}][%p%%]"
-vim.opt.signcolumn = "yes"
 
-vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+if vim.fn.has('macunix') then -- TODO is this still necessary?
+  vim.g.netrw_browsex_viewer = "open"
+end
+if vim.fn.executable('rg') then
+  vim.opt.grepprg = "rg --vimgrep"
+  vim.opt.grepformat = "%f:%l:%c:%m"
+end
+
+
+-- Open a file on the last line we were at (mark '")
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = "*",
-  command = "if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif"
+  callback = function()
+    if vim.fn.line([['"]]) > 0 and vim.fn.line([['"]]) <= vim.fn.line([[$]]) then
+      vim.cmd.normal([[g'"]])
+    end
+  end
+})
+--
+-- Switch to project roots based on git directory location
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  pattern = '*',
+  callback = function()
+    local git_path = vim.fn.finddir(".git", ".;")
+    if git_path ~= "" then
+      local project_root = vim.fn.fnamemodify(git_path, ":h")
+      vim.api.nvim_set_current_dir(project_root)
+    end
+  end
 })
 
--- Open a file on the last line we were at
--- Doesn't work like this, probably due to the quoting nightmare
---vim.api.nvim_create_autocmd({ "BufReadPost" }, {
---  pattern = "*",
---  command = 'if line("\'\"") > 0 && line("\'\"") <= line("$") | exe "normal! g\'\"" | endif'
---})
+-- Persistent undo etc
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.expand('~') .. '/.local/share/nvim/undo'
+vim.opt.directory = vim.fn.expand('~') .. '/.local/share/nvim/swp'
+vim.opt.backupdir = vim.fn.expand('~') .. '/.local/share/nvim/backup'
+
+
 -- Is this needed any more?
 --autocmd BufEnter * :syntax sync fromstart
+
+-- Recognise some non-standard file endings
 vim.filetype.add {
   extension = {
     tf = 'hcl',

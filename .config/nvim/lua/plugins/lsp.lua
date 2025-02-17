@@ -12,6 +12,9 @@ return {
         servers = {
           bashls = {},
           pylsp = {},
+          jedi_language_server = {},
+          pyright = {},
+          ruby_lsp = {},
           solargraph = {},
           gopls = {},
           sqlls = {},
@@ -83,13 +86,11 @@ return {
         if vim.tbl_contains(all_mslp_servers, server_name) then
           ensure_installed[#ensure_installed + 1] = server_name
         else
-          --print("Setting up " .. server_name .. " with " .. vim.inspect(server_opts))
           require("lspconfig")[server_name].setup(vim.tbl_deep_extend("force", {
-              on_attach = opts.on_attach,
-              capabilities = opts.capabilities,
-              inlay_hints = opts.inlay_hints,
-            },
-            server_opts))
+            on_attach = opts.on_attach,
+            capabilities = opts.capabilities,
+            inlay_hints = opts.inlay_hints,
+          }, server_opts))
         end
       end
       mlsp.setup({ ensure_installed = ensure_installed })
@@ -126,7 +127,7 @@ return {
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+          --vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
           vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
           vim.keymap.set("n", "<space>wl", function()
@@ -141,22 +142,14 @@ return {
           end, opts)
 
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          if client.supports_method('textDocument/implementation') then
-            -- Create a keymap for vim.lsp.buf.implementation
-          end
-          if client.supports_method('textDocument/completion') then
-            -- Enable auto-completion
-            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-          end
-          if client.supports_method('textDocument/formatting') then
-            -- Format the current buffer on save
-            vim.api.nvim_create_autocmd('BufWritePre', {
-              buffer = ev.buf,
-              callback = function()
-                vim.lsp.buf.format({ bufnr = ev.buf, id = client.id })
-              end,
-            })
-          end
+
+          -- Format the current buffer on save
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = ev.buf,
+            callback = function()
+              vim.lsp.buf.format({ bufnr = ev.buf })
+            end,
+          })
         end,
       })
     end
