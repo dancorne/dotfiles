@@ -2,6 +2,7 @@ return {
   {
     --:SQLUFormatter to format SQL
     "vim-scripts/SQLUtilities",
+    ft = { 'sql' },
     dependencies = {
       "vim-scripts/Align",
     }
