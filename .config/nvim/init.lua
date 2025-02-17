@@ -1,6 +1,4 @@
-vim.g.mapleader = " "
-vim.g.inccommand = nosplit
-vim.g.nv_search_paths = { "~/notes" }
+require("config")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -19,6 +17,8 @@ require("lazy").setup("plugins", {
     enabled = false,
   },
 })
-require("config")
 
-vim.cmd("source ~/.vimrc")
+-- Status line depends on both Fugitive and Treesitter
+vim.opt.statusline = [[(%{FugitiveHead()})%<%f %h%m%r%{nvim_treesitter#statusline()}%=%y[%l,%c][%L][%p%%] ]]
+-- Signcolumn for both gitgutter and LSP diagnostics
+vim.opt.signcolumn = "yes"
