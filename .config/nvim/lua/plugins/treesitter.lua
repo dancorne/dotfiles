@@ -21,6 +21,7 @@ return {
         "yaml",
         "json",
         "lua",
+        "vimdoc",
       },
       auto_install = false,
       sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
