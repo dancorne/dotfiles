@@ -14,10 +14,12 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 --Only works when in the infrastructure-live root
 -- TODO Test these commands
 vim.api.nvim_create_user_command('Terragrunt',
-  [[vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??-ops' -- terragrunt plan -lock=false]]
+  [[vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??-ops' -- terragrunt plan -lock=false]],
+  {}
 )
 vim.api.nvim_create_user_command('TerragruntApply',
-  [[vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??-full' -- terragrunt apply]]
+  [[vsplit | term cd %:p:h && aws-vault exec '%:s?/.*??-full' -- terragrunt apply]],
+  {}
 )
 vim.api.nvim_create_user_command('TFLocalModules',
   [[<line1>,<line2>s^\vsource.*/([a-zA-Z1-9_-]+)\.git//([a-zA-Z1-9/-]+)\?ref=.*^source = "/Users/dancorne/code/\1//\2"^e | norm!``]],

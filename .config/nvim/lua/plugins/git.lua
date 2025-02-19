@@ -7,6 +7,9 @@ return {
       'ibhagwan/fzf-lua',
       'nvim-tree/nvim-web-devicons',
     },
+    config = function()
+      require "octo".setup()
+    end
   },
   {
     "airblade/vim-gitgutter",
@@ -17,8 +20,7 @@ return {
       })
       vim.api.nvim_create_autocmd('BufEnter', {
         pattern = {
-          vim.fn.expand('~') .. '/*',
-          vim.fn.expand('~') .. '/config/**',
+          vim.fn.expand('~') .. '/.config/*',
         },
         callback = function()
           vim.g.gitgutter_git_args = '--git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
