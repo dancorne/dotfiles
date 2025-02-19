@@ -32,12 +32,14 @@ if vim.fn.executable('rg') then
 end
 
 
--- Open a file on the last line we were at (mark '")
+-- Open a file on the last line we were at (mark ")
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = "*",
-  callback = function()
-    if vim.fn.line([['"]]) > 0 and vim.fn.line([['"]]) <= vim.fn.line([[$]]) then
-      vim.cmd.normal([[g'"]])
+  callback = function(event)
+    local buf = event.buf
+    local last_line = vim.api.nvim_buf_get_mark(buf, '"')[1]
+    if last_line > 0 and last_line <= vim.api.nvim_buf_line_count(buf) then
+      vim.api.nvim_win_set_cursor(0, { last_line, 0 })
     end
   end
 })
