@@ -50,11 +50,11 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   callback = function()
     local file_dir = vim.fn.fnamemodify('%', ":h")
     local git_path = vim.fn.finddir(".git", file_dir .. ";")
-    if git_path ~= "" then
-      local project_root = vim.fn.fnamemodify(git_path, ":h")
-      vim.api.nvim_set_current_dir(project_root)
-    else
-      vim.api.nvim_set_current_dir(file_dir)
+    local target_dir = git_path ~= "" and vim.fn.fnamemodify(git_path, ":h") or file_dir
+    local current_dir = vim.fn.getcwd()
+
+    if current_dir ~= target_dir then
+      vim.api.nvim_set_current_dir(target_dir)
     end
   end
 })
