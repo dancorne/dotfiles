@@ -43,12 +43,15 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end
   end
 })
---
+
 -- Switch to project roots based on git directory location
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  pattern = '/',
+  pattern = '*',
   callback = function()
-    local file_dir = vim.fn.fnamemodify('%', ":h")
+    local file_dir = vim.fn.expand('%:p:h')
+    if vim.fn.isdirectory(file_dir) == 0 then
+      return
+    end
     local git_path = vim.fn.finddir(".git", file_dir .. ";")
     local target_dir = git_path ~= "" and vim.fn.fnamemodify(git_path, ":h") or file_dir
     local current_dir = vim.fn.getcwd()
