@@ -62,12 +62,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
--- Persistent undo etc
+-- Persistent undo
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.expand('~') .. '/.local/share/nvim/undo'
-vim.opt.directory = vim.fn.expand('~') .. '/.local/share/nvim/swp'
-vim.opt.backupdir = vim.fn.expand('~') .. '/.local/share/nvim/backup'
-
 
 -- Is this needed any more?
 --autocmd BufEnter * :syntax sync fromstart
