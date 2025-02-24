@@ -18,6 +18,8 @@ require("lazy").setup("plugins", {
   },
 })
 
+require("keymaps")
+
 -- Status line depends on both Fugitive and Treesitter
 vim.opt.statusline = [[(%{FugitiveHead()})%<%f %h%m%r%{nvim_treesitter#statusline()}%=%y[%l,%c][%L][%p%%] ]]
 -- Signcolumn for both gitgutter and LSP diagnostics

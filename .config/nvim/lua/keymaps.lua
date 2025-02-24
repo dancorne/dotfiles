@@ -1,14 +1,25 @@
 -- Global mappings.
 
 -- Move search results to the centre of the screen
-vim.keymap.set('n', 'nzz')
-vim.keymap.set('N', 'Nzz')
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+
+-- Make it easier to escape term mode
+vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]])
+vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w><C-j>]])
+vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w><C-k>]])
+vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w><C-h>]])
+vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w><C-l>]])
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = "fzf",
+  command = "tnoremap <buffer> <esc><esc> <c-c>"
+})
 
 --TERRAFORM TERRAGRUNT
 --Only works when in the infrastructure-live root
