@@ -1,7 +1,7 @@
 return {
   {
     'pwntester/octo.nvim',
-    commands = { "Octo" },
+    cmd = { "Octo" },
     requires = {
       'nvim-lua/plenary.nvim',
       'ibhagwan/fzf-lua',
