@@ -8,7 +8,10 @@ return {
     }
   },
   --:DirDiff for directory diffing
-  "will133/vim-dirdiff",
+  {
+    "will133/vim-dirdiff",
+    cmd = 'DirDiff'
+  },
   {
     "tpope/vim-vinegar",
     keys = {
