@@ -41,6 +41,13 @@ vim.api.nvim_create_user_command('TFModuleVersion',
   { range = true, nargs = 1 }
 )
 vim.api.nvim_create_user_command('AtlantisPlan',
-  [[:execute "!gh pr view --web | Gpush | sleep 3 | \!gh run-plan"<CR>]],
-  { range = true }
+  function()
+    os.execute([[
+    gh pr view --web && \
+    git push && \
+    sleep 3 && \
+    gh run-plan
+    ]])
+  end,
+  {}
 )
