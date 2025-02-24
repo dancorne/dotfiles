@@ -18,14 +18,6 @@ return {
         pattern = '*',
         command = "execute 'GitGutterAll'"
       })
-      vim.api.nvim_create_autocmd('BufEnter', {
-        pattern = {
-          vim.fn.expand('~') .. '/.config/*',
-        },
-        callback = function()
-          vim.g.gitgutter_git_args = '--git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-        end
-      })
     end
   },
   {
