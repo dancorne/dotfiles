@@ -23,9 +23,6 @@ vim.opt.listchars = {
   nbsp = "^",
 }
 
-if vim.fn.has('macunix') then -- TODO is this still necessary?
-  vim.g.netrw_browsex_viewer = "open"
-end
 if vim.fn.executable('rg') then
   vim.opt.grepprg = "rg --vimgrep"
   vim.opt.grepformat = "%f:%l:%c:%m"
