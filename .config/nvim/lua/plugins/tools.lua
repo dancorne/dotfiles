@@ -14,6 +14,7 @@ return {
   },
   {
     "tpope/vim-vinegar",
+    lazy = false,
     keys = {
       { "-", command = [[:Lexplore<CR>]], description = "Browse file system" }
     },
@@ -25,7 +26,6 @@ return {
   --Shortcuts like ]q
   "tpope/vim-unimpaired",
   "junegunn/vim-peekaboo",
-  --Browse history with :UndotreeToggle
   --ysaW etc. for surrounding
   "tpope/vim-surround",
   "christoomey/vim-tmux-navigator",
