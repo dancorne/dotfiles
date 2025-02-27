@@ -1,5 +1,8 @@
 -- Global mappings.
 
+-- Open weeknote
+vim.keymap.set("n", "<leader>w<leader>w", [[<cmd>vsplit ~/notes/diary/`date +\%Y-\%W`.md<cr>]])
+
 -- Move search results to the centre of the screen
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
