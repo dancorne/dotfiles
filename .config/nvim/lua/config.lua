@@ -46,13 +46,12 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   pattern = '*',
   callback = function(event)
     local file = event.file
-    local bufno = event.buf
     if file == "" or string.find(file, '://') then
       return
     end
 
     local git_path = vim.fn.finddir(".git", file .. ";")
-    local target_dir = vim.fn.fnamemodify(git_path ~= "" and git_path or file, ":h")
+    local target_dir = vim.fn.fnamemodify(git_path == "" and file or git_path, ":h")
     local current_dir = vim.fn.getcwd()
 
     if current_dir ~= target_dir then
