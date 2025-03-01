@@ -38,6 +38,24 @@ return {
         command = "if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankRegister +' | endif"
       })
     end
-  }
-
+  },
+  {
+    "HakonHarnes/img-clip.nvim",
+    event = "VeryLazy",
+    opts = {
+      default = {
+        prompt_for_file_name = false -- default path is fine
+      }
+    },
+    keys = {
+      { "<leader>v", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+    }
+  },
+  {
+    "3rd/image.nvim",
+    build = false,
+    opts = {
+      processor = "magick_cli",
+    },
+  },
 }
