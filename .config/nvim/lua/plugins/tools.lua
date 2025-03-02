@@ -23,8 +23,6 @@ return {
       vim.g.netrw_winsize = 15
     end
   },
-  --Shortcuts like ]q
-  "tpope/vim-unimpaired",
   "junegunn/vim-peekaboo",
   --ysaW etc. for surrounding
   "tpope/vim-surround",

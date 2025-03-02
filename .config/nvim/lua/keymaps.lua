@@ -1,4 +1,16 @@
 -- Global mappings.
+vim.keymap.set("n", "[b", ":bprevious<cr>")
+vim.keymap.set("n", "]b", ":bnext<cr>")
+vim.keymap.set("n", "[B", ":bfirst<cr>")
+vim.keymap.set("n", "]B", ":blast<cr>")
+vim.keymap.set("n", "[l", ":lprevious<cr>")
+vim.keymap.set("n", "]l", ":lnext<cr>")
+vim.keymap.set("n", "[L", ":lfirst<cr>")
+vim.keymap.set("n", "]L", ":llast<cr>")
+vim.keymap.set("n", "[q", ":cprevious<cr>")
+vim.keymap.set("n", "]q", ":cnext<cr>")
+vim.keymap.set("n", "[Q", ":cfirst<cr>")
+vim.keymap.set("n", "]Q", ":clast<cr>")
 
 -- Open weeknote
 vim.keymap.set("n", "<leader>w<leader>w", [[<cmd>vsplit ~/notes/diary/`date +\%Y-\%W`.md<cr>]])
