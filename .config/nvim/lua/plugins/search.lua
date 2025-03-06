@@ -10,6 +10,7 @@ return {
       { "<Leader>:",        function() require('fzf-lua').command_history() end },
       { "<Leader>b",        function() require('fzf-lua').buffers() end },
       { "<Leader>r",        function() require('fzf-lua').lsp_live_workspace_symbols() end },
+      { "<Leader>g",        function() require('fzf-lua').git_branches() end },
       { "<Leader>p",        ":Projects<CR>" },
       { "<Leader>n",        ":NV ^#<CR>",                                                               desc = "Search note headings" },
     },
@@ -45,7 +46,13 @@ return {
       end
       vim.api.nvim_create_user_command('NV', notes_picker, { nargs = '*' })
 
-      fzflua.setup()
+      fzflua.setup({
+        git = {
+          branches = {
+            cmd = "git branch --color --sort='-authordate:iso8601'",
+          }
+        }
+      })
     end
   }
 }
