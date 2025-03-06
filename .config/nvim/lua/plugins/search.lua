@@ -22,6 +22,8 @@ return {
     config = function(_, opts)
       local fzflua = require 'fzf-lua'
 
+      fzflua.register_ui_select()
+
       local function projects_picker()
         fzflua.fzf_exec(opts.projects_command,
           {
