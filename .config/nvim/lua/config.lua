@@ -24,7 +24,7 @@ vim.opt.listchars = {
 }
 
 if vim.fn.executable('rg') then
-  vim.opt.grepprg = "rg --vimgrep"
+  vim.opt.grepprg = "rg --vimgrep --"
   vim.opt.grepformat = "%f:%l:%c:%m"
 end
 
