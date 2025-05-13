@@ -10,7 +10,7 @@ return {
       { "<Leader>:",        function() require('fzf-lua').command_history() end },
       { "<Leader>b",        function() require('fzf-lua').buffers() end },
       { "<Leader>r",        function() require('fzf-lua').lsp_live_workspace_symbols() end },
-      { "<Leader>g",        function() require('fzf-lua').git_branches() end },
+      { "<Leader>gb",       function() require('fzf-lua').git_branches() end },
       { "<Leader>p",        ":Projects<CR>" },
       { "<Leader>n",        ":NV ^#<CR>",                                                               desc = "Search note headings" },
     },
