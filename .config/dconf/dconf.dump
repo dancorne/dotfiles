@@ -76,3 +76,7 @@ enabled=true
 [org/gtk/gtk4/settings/file-chooser]
 show-hidden=true
 sort-directories-first=false
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'gb')]
+xkb-options=['caps:escape']
